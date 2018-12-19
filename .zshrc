@@ -30,3 +30,5 @@ test -e "${HOME}/.cargo/env" && source "${HOME}/.cargo/env"
 if which sshfs > /dev/null; then
   source $OTHER/mountssh.sh
 fi
+
+source $OTHER/blockip.sh
