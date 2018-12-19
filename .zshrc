@@ -32,3 +32,4 @@ if which sshfs > /dev/null; then
 fi
 
 source $OTHER/blockip.sh
+source $OTHER/cdtemp.sh
