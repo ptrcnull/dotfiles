@@ -1,0 +1,7 @@
+alias lls='ls'
+alias sl='ls'
+alias wget='wget -c'
+alias zshr='source ~/.zshrc'
+alias m4a='youtube-dl --o "%(title)s.%(ext)s" --format m4a --add-metadata'
+alias flutt='flutter'
+alias gitresethard='git reset --hard HEAD && git clean -df'
