@@ -34,3 +34,5 @@ fi
 source $OTHER/blockip.sh
 source $OTHER/cdtemp.sh
 source $OTHER/stego-toolkit.sh
+
+test -e "${OTHER}/github-token.sh" && source $OTHER/github-token.sh
