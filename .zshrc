@@ -17,3 +17,8 @@ source $OTHER/path_custom.sh
 source $OTHER/transfer.sh
 source $OTHER/node_packages.sh
 source $OTHER/node_deps.sh
+
+if [ "$(uname)" = "Darwin" ]; then
+  source $OTHER/mac_gpg_fix.sh
+  source $OTHER/mac_android_sdk_path.sh
+fi
