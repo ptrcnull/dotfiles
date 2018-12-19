@@ -22,3 +22,5 @@ if [ "$(uname)" = "Darwin" ]; then
   source $OTHER/mac_gpg_fix.sh
   source $OTHER/mac_android_sdk_path.sh
 fi
+
+test -e "${HOME}/flutter/bin" && source $OTHER/flutter_path.sh
