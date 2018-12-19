@@ -15,3 +15,5 @@ source $OTHER/powerlevel_settings.sh
 source $OTHER/aliases.sh
 source $OTHER/path_custom.sh
 source $OTHER/transfer.sh
+source $OTHER/node_packages.sh
+source $OTHER/node_deps.sh
