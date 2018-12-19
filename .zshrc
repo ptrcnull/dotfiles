@@ -33,3 +33,4 @@ fi
 
 source $OTHER/blockip.sh
 source $OTHER/cdtemp.sh
+source $OTHER/stego-toolkit.sh
