@@ -24,3 +24,4 @@ if [ "$(uname)" = "Darwin" ]; then
 fi
 
 test -e "${HOME}/flutter/bin" && source $OTHER/flutter_path.sh
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
