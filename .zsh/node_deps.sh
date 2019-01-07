@@ -1,2 +1,2 @@
-updepall() { for dep in $(node -e "console.log(Object.keys(require('./package.json').dependencies).join('\n'))"); do npm install --save $dep@latest; done }
-updevdepall() { for dep in $(node -e "console.log(Object.keys(require('./package.json').devDependencies).join('\n'))"); do npm install --save-dev $dep@latest; done }
+updepall() { npm install --save $(node -p "Object.keys(require('./package.json').dependencies).map(e => e + '@latest').join(' ')") }
+updevdepall() { npm install --save-dev $(node -p "Object.keys(require('./package.json').devDependencies).map(e => e + '@latest').join(' ')") }
