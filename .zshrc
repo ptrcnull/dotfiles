@@ -15,8 +15,6 @@ export JAVA_HOME=
 source $OTHER/aliases.sh
 source $OTHER/path_custom.sh
 source $OTHER/transfer.sh
-source $OTHER/node_packages.sh
-source $OTHER/node_deps.sh
 
 if [ "$(uname)" = "Darwin" ]; then
   source $OTHER/mac_gpg_fix.sh
@@ -26,6 +24,11 @@ fi
 test -e "${HOME}/flutter/bin" && source $OTHER/flutter_path.sh
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 test -e "${HOME}/.cargo/env" && source "${HOME}/.cargo/env"
+
+if which node > /dev/null; then
+  source $OTHER/node_packages.sh
+  source $OTHER/node_deps.sh
+fi
 
 if which sshfs > /dev/null; then
   source $OTHER/mountssh.sh
