@@ -7,7 +7,7 @@ source $ZSH/oh-my-zsh.sh
 
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git)
+plugins=(git docker)
 
 export EDITOR=nano
 export JAVA_HOME=
