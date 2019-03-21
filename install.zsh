@@ -4,5 +4,6 @@ cp .zshrc $HOME
 if [ ! -d "${HOME}/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
+rm -r $HOME/.zsh
 cp -r .zsh $HOME
 source ~/.zshrc
