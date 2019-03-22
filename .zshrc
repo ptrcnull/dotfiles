@@ -12,5 +12,11 @@ plugins=(git docker)
 export EDITOR=nano
 export JAVA_HOME=
 
+for f in $OTHER; do
+  if [ -f $f ]; then
+    source $f
+  fi
+done
+
 source $OTHER/*.zsh
 test -e "${HOME}/.cargo/env" && source "${HOME}/.cargo/env"
