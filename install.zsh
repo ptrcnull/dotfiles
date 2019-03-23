@@ -11,4 +11,4 @@ if [ -d "${HOME}/.zsh" ]; then
   rm -r $HOME/.zsh
 fi
 cp -r .zsh $HOME
-source ~/.zshrc
+source $HOME/.zshrc
