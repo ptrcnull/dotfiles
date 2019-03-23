@@ -1,5 +1,3 @@
-set -ex
-
 export TERM="xterm-256color"
 export OTHER=$HOME/.zsh
 export ZSH=$HOME/.oh-my-zsh
