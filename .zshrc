@@ -1,3 +1,5 @@
+set -ex
+
 export TERM="xterm-256color"
 export OTHER=$HOME/.zsh
 export ZSH=$HOME/.oh-my-zsh
@@ -26,4 +28,6 @@ if [ -d "$HOME/.zsh-custom" ]; then
   done
 fi
 
-test -e "${HOME}/.cargo/env" && source "${HOME}/.cargo/env"
+if [ -e "$HOME/.cargo/env" ]; then
+  source "$HOME/.cargo/env"
+fi
