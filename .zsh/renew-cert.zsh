@@ -1,1 +1,1 @@
-renew-cert () { certbot certonly --manual -d "$1" --preferred-challenges dns-01 --server https://acme-v02.api.letsencrypt.org/directory }
+renew-cert () { certbot certonly --dns-digitalocean --dns-digitalocean-credentials ~/.digitalocean.ini -d "$1" }
