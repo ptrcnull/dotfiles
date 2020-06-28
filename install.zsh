@@ -1,14 +1,44 @@
 #!/usr/bin/env zsh
 # env, because some OSes keep zsh in /bin (I'm looking at you, Alpine)
-cp .zshrc $HOME
+
 if [ ! -d "${HOME}/.oh-my-zsh" ]; then
+  echo "[*] installing oh-my-zsh"
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+else
+  echo "[+] oh-my-zsh installed already"
 fi
-if [ ! -d "${HOME}/.oh-my-zsh/custom/themes/powerlevel9k" ]; then
-  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+
+echo "[*] copying .zshrc"
+cp .zshrc $HOME
+
+OMZ="${HOME}/.oh-my-zsh/custom"
+
+if [ ! -d "${OMZ}/themes/powerlevel10k" ]; then
+  echo "[*] installing powerlevel10k"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+else
+  echo "[+] powerlevel10k installed already"
 fi
+
+if [ ! -d "${OMZ}/plugins/zsh-syntax-highlighting" ]; then
+  echo "[*] installing zsh-syntax-highlighting"
+  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+else
+  echo "[+] zsh-syntax-highlighting installed already"
+fi
+
+if [ ! -d "${OMZ}/plugins/zsh-autosuggestions" ]; then
+  echo "[*] installing zsh-autosuggestions"
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+else
+  echo "[+] zsh-autosuggestions installed already"
+fi
+
 if [ -d "${HOME}/.zsh" ]; then
+  echo "[*] removing existing .zsh"
   rm -r $HOME/.zsh
 fi
+
+echo "[*] copying .zsh"
 cp -r .zsh $HOME
 source $HOME/.zshrc

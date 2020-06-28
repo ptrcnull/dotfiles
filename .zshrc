@@ -1,16 +1,32 @@
 export TERM="xterm-256color"
 export OTHER=$HOME/.zsh
 export ZSH=$HOME/.oh-my-zsh
-export ZSH_THEME="powerlevel9k/powerlevel9k"
-source $OTHER/powerlevel_settings.sh
-source $ZSH/oh-my-zsh.sh
+export ZSH_THEME="powerlevel10k/powerlevel10k"
 
-COMPLETION_WAITING_DOTS="true"
-
-plugins=(git docker)
-
-export EDITOR=nano
-export JAVA_HOME=
+plugins=(
+  git
+  gitignore
+  node
+  yarn
+  docker
+  docker-compose
+  python
+  django
+  golang
+  gradle
+  flutter
+  nmap
+  torrent
+  transfer
+  ufw
+  encode64
+  urltools
+  zsh_reload
+  sudo
+  cp
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+)
 
 for f in $OTHER/*; do
   if [ -f $f ]; then
@@ -26,6 +42,4 @@ if [ -d "$HOME/.zsh-custom" ]; then
   done
 fi
 
-if [ -e "$HOME/.cargo/env" ]; then
-  source "$HOME/.cargo/env"
-fi
+source $ZSH/oh-my-zsh.sh
