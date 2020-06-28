@@ -11,6 +11,9 @@ fi
 echo "[*] copying .zshrc"
 cp .zshrc $HOME
 
+echo "[*] copying .p10k.zsh"
+cp .p10k.zsh $HOME
+
 OMZ="${HOME}/.oh-my-zsh/custom"
 
 if [ ! -d "${OMZ}/themes/powerlevel10k" ]; then
@@ -41,4 +44,5 @@ fi
 
 echo "[*] copying .zsh"
 cp -r .zsh $HOME
+
 source $HOME/.zshrc
