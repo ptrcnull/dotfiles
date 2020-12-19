@@ -45,4 +45,18 @@ fi
 echo "[*] copying .zsh"
 cp -r .zsh $HOME
 
-source $HOME/.zshrc
+if [ ! -d "$HOME/.bin" ]; then
+  echo "[*] creating $HOME/.bin"
+  mkdir -p $HOME/.bin
+fi
+
+if ! which micro 2>/dev/null; then
+  echo "[*] installing micro"
+  pushd "$HOME/.bin"
+  curl https://getmic.ro | bash
+  popd
+else
+  echo "[+] micro already installed"
+fi
+
+zsh
