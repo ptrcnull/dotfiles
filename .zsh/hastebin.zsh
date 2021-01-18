@@ -28,10 +28,10 @@ haste () {
 		then
 		contents=$(cat $1)
 	fi
-	output=$(curl -# -f -XPOST "https://bin.ptrcnull.me/documents" -d"$contents")
+	output=$(curl -# -f -XPOST "https://bin.ddd.rip/documents" -d"$contents")
 	if (( $? == 0 )) && [[ $output =~ \"key\" ]]
 		then
-		returnfile=$(sed 's/^.*"key":"/https:\/\/bin.ptrcnull.me\//;s/".*$//' <<< "$output")
+		returnfile=$(sed 's/^.*"key":"/https:\/\/bin.ddd.rip\//;s/".*$//' <<< "$output")
 		if [[ -n $returnfile ]]
 			then
 			echo "$returnfile"
