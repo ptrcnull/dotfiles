@@ -18,23 +18,30 @@ OMZ="${HOME}/.oh-my-zsh/custom"
 
 if [ ! -d "${OMZ}/themes/powerlevel10k" ]; then
   echo "[*] installing powerlevel10k"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${OMZ}/themes/powerlevel10k"
 else
   echo "[+] powerlevel10k installed already"
 fi
 
 if [ ! -d "${OMZ}/plugins/zsh-syntax-highlighting" ]; then
   echo "[*] installing zsh-syntax-highlighting"
-  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${OMZ}/plugins/zsh-syntax-highlighting"
 else
   echo "[+] zsh-syntax-highlighting installed already"
 fi
 
 if [ ! -d "${OMZ}/plugins/zsh-autosuggestions" ]; then
   echo "[*] installing zsh-autosuggestions"
-  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "${OMZ}/plugins/zsh-autosuggestions"
 else
   echo "[+] zsh-autosuggestions installed already"
+fi
+
+if [ ! -d "${OMZ}/plugins/nix-shell" ]; then
+  echo "[*] installing nix-shell"
+  git clone --depth=1 https://github.com/chisui/zsh-nix-shell.git "${OMZ}/plugins/nix-shell"
+else
+  echo "[+] nix-shell installed already"
 fi
 
 if [ -d "${HOME}/.zsh" ]; then

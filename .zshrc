@@ -24,6 +24,7 @@ plugins=(
   zsh_reload
   sudo
   cp
+  nix-shell
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
