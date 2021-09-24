@@ -11,7 +11,6 @@ plugins=(
   docker
   docker-compose
   python
-  django
   golang
   gradle
   flutter
