@@ -12,18 +12,13 @@ plugins=(
   docker-compose
   python
   golang
-  gradle
   flutter
   nmap
-  torrent
   transfer
-  ufw
   encode64
   urltools
-  zsh_reload
   sudo
   cp
-  nix-shell
   zsh-syntax-highlighting
   zsh-autosuggestions
 )
