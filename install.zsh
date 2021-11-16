@@ -50,4 +50,4 @@ fi
 echo "[*] copying .zsh"
 cp -r .zsh $HOME
 
-zsh
+exec zsh
