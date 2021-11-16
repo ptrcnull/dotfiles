@@ -42,13 +42,6 @@ else
   echo "[+] zsh-autosuggestions installed already"
 fi
 
-if [ ! -d "${OMZ}/plugins/nix-shell" ]; then
-  echo "[*] installing nix-shell"
-  git clone --depth=1 https://github.com/chisui/zsh-nix-shell.git "${OMZ}/plugins/nix-shell"
-else
-  echo "[+] nix-shell installed already"
-fi
-
 if [ -d "${HOME}/.zsh" ]; then
   echo "[*] removing existing .zsh"
   rm -r $HOME/.zsh
