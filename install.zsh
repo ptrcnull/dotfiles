@@ -55,13 +55,4 @@ if [ ! -d "$HOME/.bin" ]; then
   mkdir -p $HOME/.bin
 fi
 
-if ! which micro 2>/dev/null; then
-  echo "[*] installing micro"
-  pushd "$HOME/.bin"
-  curl https://getmic.ro | bash
-  popd
-else
-  echo "[+] micro already installed"
-fi
-
 zsh
