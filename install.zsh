@@ -50,9 +50,4 @@ fi
 echo "[*] copying .zsh"
 cp -r .zsh $HOME
 
-if [ ! -d "$HOME/.bin" ]; then
-  echo "[*] creating $HOME/.bin"
-  mkdir -p $HOME/.bin
-fi
-
 zsh
