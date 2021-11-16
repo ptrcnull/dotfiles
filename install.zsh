@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 # env, because some OSes keep zsh in /bin (I'm looking at you, Alpine)
 
+if ! command -v curl >/dev/null; then
+  echo "[!] curl not found"
+  exit 1
+fi
+
 if [ ! -d "${HOME}/.oh-my-zsh" ]; then
   echo "[*] installing oh-my-zsh"
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
