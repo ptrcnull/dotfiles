@@ -1,5 +1,6 @@
 # https://github.com/ptrcnull/dotfiles
 
+export PATH="$HOME/.local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin"
 export TERM="xterm-256color"
 autoload -Uz compinit
 compinit
