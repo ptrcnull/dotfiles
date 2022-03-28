@@ -1,3 +1,4 @@
+alias ls='ls --color=auto'
 alias lls='ls'
 alias sl='ls'
 alias wget='wget -c'
