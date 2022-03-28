@@ -11,3 +11,8 @@ alias gitresethard='git reset --hard HEAD && git clean -df'
 alias dps='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
 alias c='docker-compose'
 alias nano='micro'
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
