@@ -11,48 +11,53 @@ if ! command -v git >/dev/null; then
   exit 1
 fi
 
-if [ ! -d "${HOME}/.oh-my-zsh" ]; then
-  echo "[*] installing oh-my-zsh"
-  sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-else
-  echo "[+] oh-my-zsh installed already"
-fi
-
 echo "[*] copying .zshrc"
-cp .zshrc $HOME
+cp .zshrc "$HOME"
 
 echo "[*] copying .p10k.zsh"
-cp .p10k.zsh $HOME
+cp .p10k.zsh "$HOME"
 
-OMZ="${HOME}/.oh-my-zsh/custom"
+plugins="$HOME/.local/share/zsh-plugins"
 
-if [ ! -d "${OMZ}/themes/powerlevel10k" ]; then
-  echo "[*] installing powerlevel10k"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${OMZ}/themes/powerlevel10k"
+# if on alpine edge, install stuff system-wide
+if grep -q edge /etc/apk/repositories 2>/dev/null; then
+  [ "$(id -u)" = "0" ] || cmd="doas"
+  echo "[*] installing stuff"
+  $cmd apk add zsh-theme-powerlevel10k zsh-syntax-highlighting zsh-autosuggestions zsh-completions
 else
-  echo "[+] powerlevel10k installed already"
+  if [ ! -d "$plugins"/powerlevel10k ]; then
+    echo "[*] installing powerlevel10k"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$plugins"/powerlevel10k
+  else
+    echo "[+] powerlevel10k installed already"
+  fi
+
+  if [ ! -d "$plugins"/zsh-syntax-highlighting ]; then
+    echo "[*] installing zsh-syntax-highlighting"
+    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$plugins"/zsh-syntax-highlighting
+  else
+    echo "[+] zsh-syntax-highlighting installed already"
+  fi
+
+  if [ ! -d "$plugins"/zsh-autosuggestions ]; then
+    echo "[*] installing zsh-autosuggestions"
+    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$plugins"/zsh-autosuggestions
+  else
+    echo "[+] zsh-autosuggestions installed already"
+  fi
 fi
 
-if [ ! -d "${OMZ}/plugins/zsh-syntax-highlighting" ]; then
-  echo "[*] installing zsh-syntax-highlighting"
-  git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${OMZ}/plugins/zsh-syntax-highlighting"
-else
-  echo "[+] zsh-syntax-highlighting installed already"
+if [ -d "$HOME"/.oh-my-zsh ]; then
+  echo "[*] cleaning up oh-my-zsh"
+  rm -r "$HOME"/.oh-my-zsh
 fi
 
-if [ ! -d "${OMZ}/plugins/zsh-autosuggestions" ]; then
-  echo "[*] installing zsh-autosuggestions"
-  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "${OMZ}/plugins/zsh-autosuggestions"
-else
-  echo "[+] zsh-autosuggestions installed already"
-fi
-
-if [ -d "${HOME}/.zsh" ]; then
+if [ -d "$HOME"/.zsh ]; then
   echo "[*] removing existing .zsh"
-  rm -r $HOME/.zsh
+  rm -r "$HOME"/.zsh
 fi
 
 echo "[*] copying .zsh"
-cp -r .zsh $HOME
+cp -r .zsh "$HOME"
 
 exec zsh
