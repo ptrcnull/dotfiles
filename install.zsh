@@ -6,6 +6,11 @@ if ! command -v curl >/dev/null; then
   exit 1
 fi
 
+if ! command -v git >/dev/null; then
+  echo "[!] git not found"
+  exit 1
+fi
+
 if [ ! -d "${HOME}/.oh-my-zsh" ]; then
   echo "[*] installing oh-my-zsh"
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
