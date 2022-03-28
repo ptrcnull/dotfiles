@@ -4,6 +4,7 @@ alias ip='ip --color=auto'
 
 alias lls='ls'
 alias sl='ls'
+alias ll='ls -lah'
 alias wget='wget -c'
 alias zshr='exec zsh'
 alias m4a='youtube-dl --o "%(title)s.%(ext)s" --format m4a --add-metadata'
