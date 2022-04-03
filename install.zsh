@@ -20,7 +20,8 @@ cp .p10k.zsh "$HOME"
 plugins="$HOME/.local/share/zsh-plugins"
 
 # if on alpine edge, install stuff system-wide
-if grep -q edge /etc/apk/repositories 2>/dev/null; then
+. /etc/os-release
+if [ "$ID" = "alpine" ] && [[ "$VERSION_ID" == *"_alpha"* ]]; then
   [ "$(id -u)" = "0" ] || cmd="doas"
   echo "[*] installing stuff"
   $cmd apk add zsh-theme-powerlevel10k zsh-syntax-highlighting zsh-autosuggestions zsh-completions
