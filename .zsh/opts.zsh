@@ -10,3 +10,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USERNAME -o pid,user,comm -w -w"
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
+
+# set word characters
+WORDCHARS=''
