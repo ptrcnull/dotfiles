@@ -1,7 +1,13 @@
+__ptrc_set_title() {
+  title="$1"
+  [ -n "$SSH_TTY" ] && title="$USER@$HOST: $title"
+  printf "\e]0;$title\a"
+}
+
 precmd () {
-  printf "\e]0;$PWD\a"
+  __ptrc_set_title "$PWD"
 }
 
 preexec () {
-  printf "\e]0;$1\a"
+  __ptrc_set_title "$1"
 }
