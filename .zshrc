@@ -1,7 +1,12 @@
 # https://github.com/ptrcnull/dotfiles
 
 export PATH="$HOME/.local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin"
-export TERM="xterm-256color"
+if [ -f /etc/terminfo/v/vte-256color ]; then
+  export TERM=vte-256color
+else
+  export TERM=xterm-256color
+fi
+
 autoload -Uz compinit
 compinit
 
