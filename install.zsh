@@ -54,11 +54,8 @@ if [ -d "$HOME"/.oh-my-zsh ]; then
 fi
 
 if [ -d "$HOME"/.zsh ]; then
-  echo "[*] removing existing .zsh"
+  echo "[*] cleaning up .zsh"
   rm -r "$HOME"/.zsh
 fi
-
-echo "[*] copying .zsh"
-cp -r .zsh "$HOME"
 
 exec zsh

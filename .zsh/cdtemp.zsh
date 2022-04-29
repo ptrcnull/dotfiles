@@ -1,1 +1,0 @@
-cdtemp () { cd $(mktemp -d) }
