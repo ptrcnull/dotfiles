@@ -3,21 +3,11 @@
 autoload -Uz compinit
 compinit
 
-export PATH="$HOME/.local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin"
-export TERM=xterm-256color
-export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
-export LANG="en_IE.UTF-8"
-
-# make gui apps work
-export QT_QPA_PLATFORMTHEME=qt5ct
-export QT_QPA_PLATFORM=wayland
-export QT_LOGGING_RULES="*.wayland=false"
-export MOZ_ENABLE_WAYLAND=1
-export _JAVA_AWT_WM_NONREPARENTING=1
-
 function load() {
 	[ -f "$1" ] && . "$1"
 }
+
+load "$HOME/.config/environment"
 
 if [ -d /usr/share/zsh/plugins ]; then
 	plugins="/usr/share/zsh/plugins"
@@ -45,6 +35,7 @@ unset load
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip --color=auto'
+alias ncdu='ncdu --color off'
 
 alias lls='ls'
 alias sl='ls'

@@ -1,0 +1,16 @@
+# some sane defaults
+export PATH="$HOME/.local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin"
+export TERM=xterm-256color
+export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+export LANG="en_IE.UTF-8"
+
+# make gui apps work
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORM=wayland
+export MOZ_ENABLE_WAYLAND=1
+export _JAVA_AWT_WM_NONREPARENTING=1
+export MICRO_TRUECOLOR=1 # not a gui app but still broken
+
+# silence, software
+export ALSOFT_LOGLEVEL=0
+export QT_LOGGING_RULES="*.wayland=false;qt.svg=false;qt.gui.imageio.jpeg=false"

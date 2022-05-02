@@ -17,6 +17,10 @@ cp .zshrc "$HOME"
 echo "[*] copying .p10k.zsh"
 cp .p10k.zsh "$HOME"
 
+echo "[*] copying environment"
+mkdir -p "$HOME"/.config
+cp environment "$HOME"/.config/environment
+
 plugins="$HOME/.local/share/zsh-plugins"
 
 # if on alpine edge, install stuff system-wide
