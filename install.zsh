@@ -1,6 +1,19 @@
 #!/usr/bin/env zsh
 # env, because some OSes keep zsh in /bin (I'm looking at you, Alpine)
 
+plugins_dir="$HOME/.local/share/zsh-plugins"
+plugins_alpine="
+  zsh-theme-powerlevel10k
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  zsh-completions
+"
+plugins_git="
+  https://github.com/romkatv/powerlevel10k
+  https://github.com/zsh-users/zsh-syntax-highlighting
+  https://github.com/zsh-users/zsh-autosuggestions
+"
+
 if ! command -v curl >/dev/null; then
   echo "[!] curl not found"
   exit 1
@@ -21,35 +34,42 @@ echo "[*] copying environment"
 mkdir -p "$HOME"/.config
 cp environment "$HOME"/.config/environment
 
-plugins="$HOME/.local/share/zsh-plugins"
 
-# if on alpine edge, install stuff system-wide
+# if on alpine 3.16, install stuff system-wide
 . /etc/os-release
-if [ "$ID" = "alpine" ] && [[ "$VERSION_ID" == *"_alpha"* ]]; then
-  [ "$(id -u)" = "0" ] || cmd="doas"
-  echo "[*] installing stuff"
-  $cmd apk add zsh-theme-powerlevel10k zsh-syntax-highlighting zsh-autosuggestions zsh-completions
+if [ "$ID" = "alpine" ] && [[ "$VERSION_ID" == "3.16"* ]]; then
+  elevate=
+
+  if [ "$(id -u)" != 0 ]; then
+    if command -v doas >/dev/null; then
+      elevate=doas
+    elif command -v sudo >/dev/null; then
+      elevate=sudo
+    else
+      echo "[!] cannot install zsh plugins system-wide"
+      elevate=:
+    fi
+  fi
+
+  for plugin in $=plugins_alpine; do
+    if ! grep -q "P:$plugin" /lib/apk/db/installed; then
+      echo "[*] installing $plugin locally"
+      $elevate apk add "$plugin"
+    else
+      echo "[+] $plugin installed already"
+    fi
+  done
 else
-  if [ ! -d "$plugins"/powerlevel10k ]; then
-    echo "[*] installing powerlevel10k"
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$plugins"/powerlevel10k
-  else
-    echo "[+] powerlevel10k installed already"
-  fi
+  for plugin in $=plugins_git; do
+    name="${plugin/*\//}"
 
-  if [ ! -d "$plugins"/zsh-syntax-highlighting ]; then
-    echo "[*] installing zsh-syntax-highlighting"
-    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$plugins"/zsh-syntax-highlighting
-  else
-    echo "[+] zsh-syntax-highlighting installed already"
-  fi
-
-  if [ ! -d "$plugins"/zsh-autosuggestions ]; then
-    echo "[*] installing zsh-autosuggestions"
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$plugins"/zsh-autosuggestions
-  else
-    echo "[+] zsh-autosuggestions installed already"
-  fi
+    if [ ! -d "$plugins_dir/$name" ]; then
+      echo "[*] installing $name system-wide"
+      git clone --depth=1 "$1" "$plugins_dir/$name"
+    else
+      echo "[+] $name installed already"
+    fi
+  done
 fi
 
 if [ -d "$HOME"/.oh-my-zsh ]; then
