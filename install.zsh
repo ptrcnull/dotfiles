@@ -1,5 +1,4 @@
-#!/usr/bin/env zsh
-# env, because some OSes keep zsh in /bin (I'm looking at you, Alpine)
+#!/bin/zsh
 
 plugins_dir="$HOME/.local/share/zsh-plugins"
 plugins_alpine="
