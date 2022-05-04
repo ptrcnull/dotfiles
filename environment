@@ -1,6 +1,5 @@
 # some sane defaults
 export PATH="$HOME/.local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin"
-export TERM=xterm-256color
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 export LANG="en_IE.UTF-8"
 
