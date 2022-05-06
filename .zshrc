@@ -101,7 +101,7 @@ function nb() {
 function __ptrc_set_title() {
   title="$1"
   [ -n "$SSH_TTY" ] && title="$USER@$HOST: $title"
-  printf "\e]0;$title\a"
+  printf "\e]0;%s\a" "$title"
 }
 
 function precmd () {
