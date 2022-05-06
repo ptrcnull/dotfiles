@@ -288,3 +288,12 @@ zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
 
 # set word characters
 WORDCHARS=''
+
+# send current directory to the terminal
+function osc7 {
+    setopt localoptions extendedglob
+    input=( ${(s::)PWD} )
+    uri=${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-\/])/%${(l:2::0:)$(([##16]#match))}} # ' micro bad
+    print -n "\e]7;file://${HOSTNAME}${uri}\e\\"
+}
+add-zsh-hook -Uz chpwd osc7
