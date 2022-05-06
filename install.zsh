@@ -30,8 +30,7 @@ echo "[*] copying .p10k.zsh"
 cp .p10k.zsh "$HOME"
 
 echo "[*] copying environment"
-mkdir -p "$HOME"/.config
-cp environment "$HOME"/.config/environment
+install -D environment -t "$HOME"/.config
 
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
