@@ -35,6 +35,9 @@ install -D environment -t "$HOME"/.config
 echo "[*] copying foot.ini"
 install -D foot.ini -t "$HOME"/.config/foot
 
+echo "[*] copying i3status.toml"
+install -D i3status.toml "$HOME"/.config/i3status-rust/config.toml
+
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
   mkdir -p "$HOME"/.ssh
