@@ -32,6 +32,9 @@ cp .p10k.zsh "$HOME"
 echo "[*] copying environment"
 install -D environment -t "$HOME"/.config
 
+echo "[*] copying foot.ini"
+install -D foot.ini -t "$HOME"/.config/foot
+
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
   mkdir -p "$HOME"/.ssh
