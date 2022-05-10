@@ -23,19 +23,11 @@ if ! command -v git >/dev/null; then
   exit 1
 fi
 
-echo "[*] copying .zshrc"
-cp .zshrc "$HOME"
-
-echo "[*] copying .p10k.zsh"
-cp .p10k.zsh "$HOME"
-
-echo "[*] copying environment"
+echo "[*] installing config files"
+install -D .zshrc -t "$HOME"
+install -D .p10k.zsh -t "$HOME"
 install -D environment -t "$HOME"/.config
-
-echo "[*] copying foot.ini"
 install -D foot.ini -t "$HOME"/.config/foot
-
-echo "[*] copying i3status.toml"
 install -D i3status.toml "$HOME"/.config/i3status-rust/config.toml
 
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
