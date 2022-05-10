@@ -75,12 +75,12 @@ fi
 
 if [ -d "$HOME"/.oh-my-zsh ]; then
   echo "[*] cleaning up oh-my-zsh"
-  rm -r "$HOME"/.oh-my-zsh
+  rm -rf "$HOME"/.oh-my-zsh
 fi
 
 if [ -d "$HOME"/.zsh ]; then
   echo "[*] cleaning up .zsh"
-  rm -r "$HOME"/.zsh
+  rm -rf "$HOME"/.zsh
 fi
 
 exec zsh
