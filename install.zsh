@@ -54,7 +54,7 @@ if [ "$ID" = "alpine" ] && [[ "$VERSION_ID" == "3.16"* ]]; then
 
   for plugin in $=plugins_alpine; do
     if ! grep -q "P:$plugin" /lib/apk/db/installed; then
-      echo "[*] installing $plugin locally"
+      echo "[*] installing $plugin system-wide"
       $elevate apk add "$plugin"
     else
       echo "[+] $plugin installed already"
@@ -65,8 +65,8 @@ else
     name="${plugin/*\//}"
 
     if [ ! -d "$plugins_dir/$name" ]; then
-      echo "[*] installing $name system-wide"
-      git clone --depth=1 "$1" "$plugins_dir/$name"
+      echo "[*] installing $name locally"
+      git clone --depth=1 "$plugin" "$plugins_dir/$name"
     else
       echo "[+] $name installed already"
     fi
