@@ -41,7 +41,6 @@ alias ncdu='ncdu --color off'
 alias lls='ls'
 alias sl='ls'
 alias ll='ls -lah'
-alias wget='wget -c'
 alias m4a='youtube-dl --o "%(title)s.%(ext)s" --format m4a --add-metadata'
 alias gitresethard='git reset --hard HEAD && git clean -df'
 alias dps='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
@@ -49,6 +48,10 @@ alias c='docker-compose'
 alias nano='micro'
 alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
+alias wget='curl -LO'
+if command -v aria2c >/dev/null; then
+	alias wget='aria2c'
+fi
 
 alias -g ...='../..'
 alias -g ....='../../..'
