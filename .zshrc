@@ -26,8 +26,8 @@ if [ -d "$HOME"/.zsh-custom ]; then
 	done
 fi
 
-load "$HOME/.config/zsh"
-load "$HOME/.p10k.zsh"
+load "$HOME/.config/zsh/local.zsh"
+load "$HOME/.config/zsh/p10k.zsh"
 load "$HOME/.cargo/env"
 
 unfunction load

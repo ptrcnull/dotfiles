@@ -25,10 +25,12 @@ fi
 
 echo "[*] installing config files"
 install -D .zshrc -t "$HOME"
-install -D .p10k.zsh -t "$HOME"
 install -D environment -t "$HOME"/.config
+install -D p10k.zsh -t "$HOME"/.config/zsh
 install -D foot.ini -t "$HOME"/.config/foot
 install -D i3status.toml "$HOME"/.config/i3status-rust/config.toml
+
+touch "$HOME"/.config/zsh/local.zsh
 
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
