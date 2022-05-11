@@ -23,14 +23,25 @@ if ! command -v git >/dev/null; then
   exit 1
 fi
 
+# migrate legacy
+mkdir -p "$HOME"/.config/zsh
+touch "$HOME"/.config/zsh/local.zsh
+if [ -d "$HOME"/.zsh-custom ]; then
+	for file in "$HOME"/.zsh-custom/*; do
+		echo "# $file" >> "$HOME"/.config/zsh/local.zsh
+		cat "$file" >> "$HOME"/.config/zsh/local.zsh
+		echo "" >> "$HOME"/.config/zsh/local.zsh
+		rm "$file"
+	done
+	rmdir "$HOME"/.zsh-custom
+fi
+
 echo "[*] installing config files"
 install -D .zshrc -t "$HOME"
 install -D environment -t "$HOME"/.config
 install -D p10k.zsh -t "$HOME"/.config/zsh
 install -D foot.ini -t "$HOME"/.config/foot
 install -D i3status.toml "$HOME"/.config/i3status-rust/config.toml
-
-touch "$HOME"/.config/zsh/local.zsh
 
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"

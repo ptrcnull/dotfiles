@@ -19,13 +19,6 @@ source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# legacy stuff
-if [ -d "$HOME"/.zsh-custom ]; then
-	for f in "$HOME"/.zsh-custom/*; do
-		load "$f"
-	done
-fi
-
 load "$HOME/.config/zsh/local.zsh"
 load "$HOME/.config/zsh/p10k.zsh"
 load "$HOME/.cargo/env"
