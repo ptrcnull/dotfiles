@@ -30,7 +30,7 @@ load "$HOME/.config/zsh"
 load "$HOME/.p10k.zsh"
 load "$HOME/.cargo/env"
 
-unset load
+unfunction load
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
