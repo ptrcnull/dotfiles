@@ -51,6 +51,8 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
+alias -g wrl='while { read line }'
+
 function cpf() {
 	wl-copy --type text/uri-list "file://$(realpath $1)"
 }
