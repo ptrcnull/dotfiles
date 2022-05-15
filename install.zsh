@@ -23,6 +23,8 @@ if ! command -v git >/dev/null; then
   exit 1
 fi
 
+set -e
+
 # migrate legacy
 mkdir -p "$HOME"/.config/zsh
 touch "$HOME"/.config/zsh/local.zsh
