@@ -9,20 +9,20 @@ hide_inactive = true
 [[block]]
 block = "net"
 device = "br0"
-format = "br0 {ip}"
+format = "br0({ip})"
 hide_inactive = true
 
 [[block]]
 block = "net"
 device = "eth0"
-format = "eth0 {ip}"
+format = "eth0({ip})"
 hide_inactive = true
 
 [[block]]
 block = "net"
 device = "wlan0"
-format = "wlan0 {ip}"
-format_alt = "wlan0 {ssid} ({signal_strength}) {ip}"
+format = "wlan0({ip})"
+format_alt = "wlan0({ssid};{signal_strength};{ip})"
 hide_inactive = true
 
 [[block]]
