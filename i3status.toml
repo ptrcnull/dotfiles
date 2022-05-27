@@ -67,14 +67,6 @@ full_format = "{percentage}"
 hide_missing = true
 
 [[block]]
-block = "custom"
-command = '''python3 -c 'import dateutil.relativedelta as r;from datetime import datetime as d;x=r.relativedelta(d.fromtimestamp(1652443200), d.now()); print(f"{x.days}d{x.hours}h")''''
-
-[[block]]
-block = "custom"
-command = '''python3 -c 'import dateutil.relativedelta as r;from datetime import datetime as d;x=r.relativedelta(d.fromtimestamp(1653127200), d.now()); print(f"{x.days}d{x.hours}h")''''
-
-[[block]]
 block = "time"
 interval = 1
 format = "%Y-%m-%d %H:%M:%S"
