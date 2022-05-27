@@ -9,7 +9,7 @@ function load() {
 
 load "$HOME/.config/environment"
 
-if [ -d /usr/share/zsh/plugins ]; then
+if [ -d /usr/share/zsh/plugins ] && [ -d /usr/share/zsh/plugins/zsh-autosuggestions ]; then
 	plugins="/usr/share/zsh/plugins"
 else
 	plugins="$HOME/.local/share/zsh-plugins"
