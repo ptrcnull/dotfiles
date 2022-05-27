@@ -43,7 +43,12 @@ on_click = "" # don't collapse
 
 [[block]]
 block = "sound"
+format = "{output_name} {volume}"
 step_width = 5
+show_volume_when_muted = true
+on_click = "pavucontrol"
+[block.mappings]
+"alsa_output.pci-0000_07_00.6.analog-stereo" = "speaker"
 
 [[block]]
 block = "backlight"
