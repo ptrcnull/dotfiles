@@ -15,15 +15,28 @@ else
 	plugins="$HOME/.local/share/zsh-plugins"
 fi
 
-source "$plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source "$plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 load "$HOME/.config/zsh/local.zsh"
-load "$HOME/.config/zsh/p10k.zsh"
 load "$HOME/.cargo/env"
 
 unfunction load
+
+function __ptrc_prompt {
+	local c_green=$'%{\x1b[32m%}'
+	local c_blue=$'%{\x1b[34m%}'
+	local c_reset=$'%{\x1b[0m%}'
+
+	echo "${c_blue}%~ ${c_green}>$c_reset "
+}
+
+if command -v starship >/dev/null; then
+	source <(starship init zsh --print-full-init)
+else
+	setopt promptsubst
+	export PS1='$(__ptrc_prompt)'
+fi
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'

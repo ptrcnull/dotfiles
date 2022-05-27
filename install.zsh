@@ -2,13 +2,12 @@
 
 plugins_dir="$HOME/.local/share/zsh-plugins"
 plugins_alpine="
-  zsh-theme-powerlevel10k
+  starship
   zsh-syntax-highlighting
   zsh-autosuggestions
   zsh-completions
 "
 plugins_git="
-  https://github.com/romkatv/powerlevel10k
   https://github.com/zsh-users/zsh-syntax-highlighting
   https://github.com/zsh-users/zsh-autosuggestions
 "
@@ -41,7 +40,7 @@ fi
 echo "[*] installing config files"
 install -D .zshrc -t "$HOME"
 install -D environment -t "$HOME"/.config
-install -D p10k.zsh -t "$HOME"/.config/zsh
+install -D starship.toml -t "$HOME"/.config
 install -D foot.ini -t "$HOME"/.config/foot
 install -D i3status.toml "$HOME"/.config/i3status-rust/config.toml
 
