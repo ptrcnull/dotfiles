@@ -10,6 +10,8 @@ export QT_QPA_PLATFORM=wayland
 export MOZ_ENABLE_WAYLAND=1
 export _JAVA_AWT_WM_NONREPARENTING=1
 export MICRO_TRUECOLOR=1 # not a gui app but still broken
+export GDK_BACKEND=wayland
+export SDL_VIDEODRIVER=wayland # for extra spicyness
 
 # silence, software
 export ALSOFT_LOGLEVEL=0
