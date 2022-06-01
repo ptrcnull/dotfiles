@@ -54,6 +54,7 @@ alias c='docker-compose'
 alias nano='micro'
 alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
+alias wrl='while { read line }'
 alias wget='curl -LO'
 if command -v aria2c >/dev/null; then
 	alias wget='aria2c'
@@ -63,8 +64,6 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
-
-alias -g wrl='while { read line }'
 
 function cpf() {
 	wl-copy --type text/uri-list "file://$(realpath $1)"
