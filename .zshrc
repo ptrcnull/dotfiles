@@ -54,7 +54,6 @@ alias ll='ls -lah'
 alias m4a='youtube-dl --o "%(title)s.%(ext)s" --format m4a --add-metadata'
 alias gitresethard='git reset --hard HEAD && git clean -df'
 alias dps='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
-alias c='docker-compose'
 alias nano='micro'
 alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
@@ -63,6 +62,11 @@ alias falsedo='false; while { [ $? != 0 ] }'
 alias wget='curl -LO'
 if command -v aria2c >/dev/null; then
 	alias wget='aria2c'
+fi
+
+alias c='docker-compose'
+if ! iscmd docker-compose; then
+	alias c='docker compose'
 fi
 
 alias -g ...='../..'
