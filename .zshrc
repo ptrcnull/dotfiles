@@ -31,7 +31,11 @@ function __ptrc_prompt {
 	echo "${c_blue}%~ ${c_green}>$c_reset "
 }
 
-if command -v starship >/dev/null; then
+iscmd() {
+	command -v "$1" > /dev/null
+}
+
+if iscmd starship; then
 	source <(starship init zsh --print-full-init)
 else
 	setopt promptsubst
@@ -70,7 +74,7 @@ function cpf() {
 	wl-copy --type text/uri-list "file://$(realpath $1)"
 }
 
-if command -v micro >/dev/null; then
+if iscmd micro; then
 	export EDITOR=micro
 else
 	export EDITOR=nano
@@ -84,7 +88,7 @@ if [ -d "$HOME/go" ]; then
 fi
 
 # TODO remove
-if command -v git >/dev/null; then
+if iscmd git; then
   if ! grep -q tree ~/.gitconfig 2>/dev/null; then
     git config --global alias.tree "log --oneline --graph --decorate --all"
   fi
