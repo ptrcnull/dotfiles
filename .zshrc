@@ -59,15 +59,24 @@ alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
 alias wrl='while { read line }'
 alias falsedo='false; while { [ $? != 0 ] }'
-alias wget='curl -LO'
-if command -v aria2c >/dev/null; then
-	alias wget='aria2c'
-fi
 
 alias c='docker-compose'
 if ! iscmd docker-compose; then
 	alias c='docker compose'
 fi
+
+function wget {
+	local dl='curl -LO'
+	if iscmd aria2c; then
+		dl='aria2c'
+	fi
+
+	if [ $# = 1 ]; then
+		$dl "$1"
+	else
+		command wget "$@"
+	fi
+}
 
 alias -g ...='../..'
 alias -g ....='../../..'
