@@ -55,6 +55,7 @@ alias nano='micro'
 alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
 alias wrl='while { read line }'
+alias falsedo='false; while { [ $? != 0 ] }'
 alias wget='curl -LO'
 if command -v aria2c >/dev/null; then
 	alias wget='aria2c'
@@ -100,10 +101,6 @@ function tpaste() {
 function squash() {
 	mksquashfs "$1" "$1.zst.sfs" -comp zstd -Xcompression-level 22
 }
-
-function falsedo() (
-	false; while [[ $? != 0 ]]; do $@; done
-)
 
 function nb() {
   git checkout -b $1 master
