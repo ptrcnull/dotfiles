@@ -9,6 +9,8 @@ $git_commit\
 $git_state\
 $git_status\
 
+$python\
+
 $character"""
 
 [username]
@@ -30,3 +32,8 @@ deleted = "[x${count}](red) "
 staged = "[+${count}](yellow) "
 modified = "[!${count}](yellow) "
 untracked = "[?${count}](cyan) "
+
+[python]
+format = 'with [${symbol}${pyenv_prefix}($virtualenv )]($style)'
+detect_files = []
+detect_extensions = []
