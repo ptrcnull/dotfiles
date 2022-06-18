@@ -155,6 +155,8 @@ alias gp='git push'
 alias gpf='git push --force'
 alias gpa='git push -u aports $(git symbolic-ref --short HEAD)'
 alias grm='git rebase origin/master'
+alias gr='git rebase'
+alias grbc='git rebase --continue'
 
 # History wrapper
 function omz_history {
