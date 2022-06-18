@@ -59,6 +59,7 @@ alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
 alias wrl='while { read line }'
 alias falsedo='false; while { [ $? != 0 ] }'
+alias rga='rg -uuui'
 
 alias c='docker-compose'
 if ! iscmd docker-compose; then
