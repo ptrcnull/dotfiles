@@ -17,7 +17,7 @@ $character"""
 format = "[$user]($style)@"
 
 [hostname]
-format = "[$ssh_symbol$hostname]($style) "
+format = "[$hostname]($style) "
 
 [directory]
 truncate_to_repo = false
