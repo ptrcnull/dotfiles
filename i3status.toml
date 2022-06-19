@@ -1,5 +1,8 @@
 icons_format = " "
 
+[theme.overrides]
+separator = ""
+
 [[block]]
 block = "net"
 device = "wg0"
