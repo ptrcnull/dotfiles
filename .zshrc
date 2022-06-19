@@ -3,7 +3,7 @@
 autoload -Uz compinit
 compinit
 
-function load() {
+load() {
 	[ -f "$1" ] && . "$1"
 }
 
@@ -23,7 +23,7 @@ load "$HOME/.cargo/env"
 
 unfunction load
 
-function __ptrc_prompt {
+__ptrc_prompt() {
 	local c_green=$'%{\x1b[32m%}'
 	local c_blue=$'%{\x1b[34m%}'
 	local c_reset=$'%{\x1b[0m%}'
@@ -66,7 +66,7 @@ if ! iscmd docker-compose; then
 	alias c='docker compose'
 fi
 
-function wget {
+wget() {
 	local dl='curl -LO'
 	if iscmd aria2c; then
 		dl='aria2c'
@@ -84,7 +84,7 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
 
-function cpf() {
+cpf() {
 	wl-copy --type text/uri-list "file://$(realpath $1)"
 }
 
@@ -108,33 +108,33 @@ if iscmd git; then
   fi
 fi
 
-function go-static-build () {
+go-static-build () {
 	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o $1 .
 }
 
-function tpaste() {
+tpaste() {
 	curl -F 'tpaste=<-' https://tpaste.us/
 }
 
-function squash() {
+squash() {
 	mksquashfs "$1" "$1.zst.sfs" -comp zstd -Xcompression-level 22
 }
 
-function nb() {
+nb() {
   git checkout -b $1 master
 }
 
-function __ptrc_set_title() {
+__ptrc_set_title() {
   title="$1"
   [ -n "$SSH_TTY" ] && title="$USER@$HOST: $title"
   printf "\e]0;%s\a" "$title"
 }
 
-function precmd () {
+precmd() {
   __ptrc_set_title "$PWD"
 }
 
-function preexec () {
+preexec() {
   __ptrc_set_title "$1"
 }
 
@@ -159,7 +159,7 @@ alias gr='git rebase'
 alias grbc='git rebase --continue'
 
 # History wrapper
-function omz_history {
+omz_history() {
   local clear list
   zparseopts -E c=clear l=list
 
@@ -204,10 +204,10 @@ setopt share_history          # share command history data
 # Make sure that the terminal is in application mode when zle is active, since
 # only then values from $terminfo are valid
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-  function zle-line-init() {
+  zle-line-init() {
     echoti smkx
   }
-  function zle-line-finish() {
+  zle-line-finish() {
     echoti rmkx
   }
   zle -N zle-line-init
@@ -297,7 +297,7 @@ zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
 WORDCHARS=''
 
 # send current directory to the terminal
-function osc7 {
+osc7() {
     setopt localoptions extendedglob
     input=( ${(s::)PWD} )
     uri=${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-\/])/%${(l:2::0:)$(([##16]#match))}} # ' micro bad
