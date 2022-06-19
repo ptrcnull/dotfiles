@@ -35,9 +35,18 @@ format_mem = "m{mem_used_percents:02}"
 on_click = "" # don't show swap
 
 [[block]]
+if_command = "[ $(hostname) = toshiro ]"
 block = "temperature"
 collapsed = false
 chip = "k10temp-pci-00c3"
+format = "{average:1}"
+on_click = "" # don't collapse
+
+[[block]]
+if_command = "[ $(hostname) = katsumi ]"
+block = "temperature"
+collapsed = false
+chip = "coretemp-isa-0000"
 format = "{average:1}"
 on_click = "" # don't collapse
 
