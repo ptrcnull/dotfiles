@@ -31,7 +31,7 @@ format = "c{utilization:0}"
 
 [[block]]
 block = "memory"
-format_mem = "m{mem_used_percents:1}"
+format_mem = "m{mem_used_percents:02}"
 on_click = "" # don't show swap
 
 [[block]]
