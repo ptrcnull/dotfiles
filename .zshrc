@@ -95,6 +95,7 @@ else
 fi
 
 [ -d "$HOME/flutter/bin" ] && export PATH="$HOME/flutter/bin:$PATH"
+[ -d "$HOME/.cargo/bin" ] && export PATH="$HOME/.cargo/bin:$PATH"
 
 if [ -d "$HOME/go" ]; then
   export GOPATH="$HOME/go"
