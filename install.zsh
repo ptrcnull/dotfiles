@@ -44,11 +44,11 @@ if [ -d "$HOME"/.zsh-custom ]; then
 fi
 
 echo "[*] installing config files"
-install -D .zshrc -t "$HOME"
-install -D environment -t "$HOME"/.config
-install -D starship.toml -t "$HOME"/.config
-install -D foot.ini -t "$HOME"/.config/foot
-install -D i3status.toml "$HOME"/.config/i3status-rust/config.toml
+install -Dm644 .zshrc -t "$HOME"
+install -Dm644 environment -t "$HOME"/.config
+install -Dm644 starship.toml -t "$HOME"/.config
+install -Dm644 foot.ini -t "$HOME"/.config/foot
+install -Dm644 i3status.toml "$HOME"/.config/i3status-rust/config.toml
 
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
