@@ -45,12 +45,9 @@ fi
 
 echo "[*] installing config files"
 install -Dm644 .zshrc -t "$HOME"
-install -Dm644 environment -t "$HOME"/.config
-install -Dm644 starship.toml -t "$HOME"/.config
-install -Dm644 foot.ini -t "$HOME"/.config/foot
-install -Dm644 i3status.toml "$HOME"/.config/i3status-rust/config.toml
-install -Dm644 swaync.json "$HOME"/.config/swaync/config.json
-install -Dm644 swaync.css "$HOME"/.config/swaync/style.css
+find config -type f | while read file; do
+	install -Dv $file $(echo $file | sed "s|config|$HOME/.config|")
+done
 
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
