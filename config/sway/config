@@ -1,0 +1,136 @@
+set $mod Mod4
+
+output "Hewlett Packard LA2405 CN412306V3" mode 1920x1200@59.950Hz position 0,0
+output "that other shit monitor todo fill" mode 1920x1080@239.964Hz position 0,120
+output eDP-1 position 0,1200
+
+# autostart
+exec logwrap -n pipewire /usr/libexec/pipewire-launcher
+exec logwrap swaync
+exec logwrap syncthing
+exec swaybg -i /home/patrycja/Cloud/wallpaper2.jpg
+
+bindsym --locked $mod+k exec "sleep 0.2; doas suspend"
+bindsym $mod+Shift+n exec swaync-client -t
+
+# Kill focused window
+bindsym Mod1+F4 kill
+bindsym $mod+u exec ~/.local/bin/sway-toggle-stop
+
+# Screenshot
+bindsym Print exec grim -g "$(slurp -o)" - | wl-copy -t image/png
+bindsym Shift+Print exec grim - | wl-copy -t image/png
+bindsym Ctrl+Print exec grim "$HOME/Documents/Screenshot-$(date -Iseconds | sed 's/\+.*//;s/T/_/').png"
+bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | imv -f -
+
+bindsym $mod+d exec logwrap rofi -modi drun -show drun -show-icons
+bindsym Mod1+F2 exec logwrap rofi -show run
+
+floating_modifier $mod normal
+
+bindsym $mod+Return exec logwrap foot
+bindsym $mod+l exec swaylock
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym $mod+Control+Shift+Right move workspace to output right
+bindsym $mod+Control+Shift+Left move workspace to output left
+bindsym $mod+Control+Shift+Down move workspace to output down
+bindsym $mod+Control+Shift+Up move workspace to output up
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+a focus parent
+
+bindsym $mod+f fullscreen
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+bindsym XF86MonBrightnessDown exec "brightnessctl set 2%-"
+bindsym XF86MonBrightnessUp exec "brightnessctl set +2%"
+
+bindsym XF86AudioRaiseVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
+bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
+bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+
+bindsym XF86AudioMicMute exec 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
+
+input * {
+	xkb_layout "pl"
+}
+
+input type:touchpad {
+	natural_scroll enabled
+	tap enabled
+}
+
+input "2:10:TPPS/2_Elan_TrackPoint" {
+	accel_profile "flat"
+	# pointer_accel 0.0
+	pointer_accel 1.0
+}
+
+mode "resize" {
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+mode "remote" {
+    bindsym $mod+Shift+r mode "default"
+}
+bindsym $mod+Shift+r mode "remote"
+
+bar {
+	position top
+	status_command i3status-rs
+	font Noto Sans Mono Medium 12
+}
+
+hide_edge_borders both
+
+for_window [title="Firefox - Sharing Indicator"] floating enable
