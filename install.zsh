@@ -49,6 +49,12 @@ find config -type f | while read file; do
 	install -Dv $file $(echo $file | sed "s|config|$HOME/.config|")
 done
 
+echo "[*] installing executables"
+find bin -type f | while read file; do
+	install -Dv $file $(echo $file | sed "s|bin|$HOME/.local/bin|")
+done
+
+
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
   mkdir -p "$HOME"/.ssh

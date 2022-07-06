@@ -1,0 +1,9 @@
+#!/bin/zsh
+. "$HOME/.config/environment"
+
+rm -f $XDG_RUNTIME_DIR/bus
+export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
+dbus-daemon --session --address=$DBUS_SESSION_BUS_ADDRESS &
+
+mkdir -p ~/.local/var/log
+exec sway $@ 2>&1 | tee -a ~/.local/var/log/sway.log
