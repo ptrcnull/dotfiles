@@ -1,0 +1,10 @@
+#!/bin/sh
+
+pid=$(swaymsg -t get_tree | jq -r '..|objects|select(.focused==true)|.pid')
+if grep -q stopped "/proc/$pid/status"; then
+	swaymsg opacity 1
+	kill -CONT $pid
+else
+	swaymsg opacity 0.5
+	kill -STOP $pid
+fi
