@@ -1,5 +1,6 @@
 add_newline = true
 format = """
+$env_var\
 $username\
 $hostname\
 $directory\
@@ -12,6 +13,10 @@ $git_status\
 $python\
 
 $character"""
+
+[env_var.CUSTOM_PROMPT_TAG]
+format = "[$env_value]($style) "
+style = "green bold"
 
 [username]
 format = "[$user]($style)@"
