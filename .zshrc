@@ -155,7 +155,7 @@ alias gpristine='git reset --hard && git clean -dffx'
 alias gp='git push'
 alias gpf='git push --force'
 alias gpa='git push -u aports $(git symbolic-ref --short HEAD)'
-alias grm='git rebase origin/master'
+alias grm='EDITOR=true git rebase --autosquash -i origin/master'
 alias gr='git rebase'
 alias grbc='git rebase --continue'
 
