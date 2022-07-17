@@ -46,7 +46,7 @@ fi
 echo "[*] installing config files"
 install -Dm644 .zshrc -t "$HOME"
 find config -type f | while read file; do
-	install -Dv $file $(echo $file | sed "s|config|$HOME/.config|")
+	busybox install -Dv $file $(echo $file | sed "s|config|$HOME/.config|")
 done
 
 echo "[*] installing executables"
