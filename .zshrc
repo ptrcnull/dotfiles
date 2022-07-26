@@ -47,6 +47,7 @@ alias grep='grep --color=auto'
 alias ip='ip --color=auto'
 alias diff='diff --color=auto'
 alias ncdu='ncdu --color off'
+alias lldb='TERM=xterm-256color lldb'
 
 alias lls='ls'
 alias sl='ls'
