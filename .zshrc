@@ -168,6 +168,17 @@ alias grbc='git rebase --continue'
 
 alias history='fc -l 0'
 
+commit-aports() {
+	git status --porcelain | cut -c4- | cut -d/ -f1-2 | while read line; do
+		git add $line
+		if [ "$1" != "" ]; then
+			git commit -m "$line: $1"
+		else
+			git commit
+		fi
+	done
+}
+
 ## History file configuration
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000000
