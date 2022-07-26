@@ -134,3 +134,4 @@ bar {
 hide_edge_borders both
 
 for_window [title="Firefox - Sharing Indicator"] floating enable
+for_window [shell="xwayland"] title_format "[XWayland] %title"
