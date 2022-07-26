@@ -68,6 +68,11 @@ if ! iscmd docker-compose; then
 	alias c='docker compose'
 fi
 
+if ! iscmd docker && iscmd podman; then
+	alias docker='doas podman'
+	alias c='podman-compose'
+fi
+
 wget() {
 	local dl='curl -LO'
 	if iscmd aria2c; then
