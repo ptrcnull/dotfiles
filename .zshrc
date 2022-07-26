@@ -132,6 +132,10 @@ nb() {
   git checkout -b $1 master
 }
 
+searchpkg() {
+	apk search --description -v "$@" | sed -E 's/(.*)-([^-]*-r[0-9]+)/\x1b[1m\1\x1b[0m \2/;s/^/\n/;s/ - /\n/'
+}
+
 __ptrc_set_title() {
   title="$1"
   [ -n "$SSH_TTY" ] && title="$USER@$HOST: $title"
