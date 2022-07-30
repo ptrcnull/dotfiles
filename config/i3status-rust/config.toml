@@ -2,6 +2,13 @@ icons_format = " "
 
 [theme.overrides]
 separator = ""
+critical_bg = "#ff0055"
+critical_fg = "#000000"
+warning_bg = "#ff0055"
+warning_fg = "#000000"
+#good_fg = "#ff0055"
+#idle_fg = "#ff0055"
+#info_fg = "#ff0055"
 
 [[block]]
 block = "net"
