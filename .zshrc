@@ -70,7 +70,7 @@ if ! iscmd docker-compose; then
 fi
 
 if ! iscmd docker && iscmd podman; then
-	alias docker='doas podman'
+	alias docker='podman'
 	alias c='podman-compose'
 fi
 
