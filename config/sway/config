@@ -12,6 +12,7 @@ exec swaybg -i /home/patrycja/Cloud/wallpaper2.jpg
 
 bindsym --locked $mod+k exec "sleep 0.2; doas suspend"
 bindsym $mod+Shift+n exec swaync-client -t
+bindsym XF86NotificationCenter exec swaync-client -t
 
 # Kill focused window
 bindsym Mod1+F4 kill
@@ -43,6 +44,10 @@ bindsym XF86AudioLowerVolume exec 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
 bindsym XF86AudioMute exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
 
 bindsym XF86AudioMicMute exec 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'
+
+bindsym XF86PickupPhone exec playerctl previous
+bindsym XF86HangupPhone exec playerctl next
+bindsym XF86Favorites exec playerctl play-pause
 
 input * {
 	xkb_layout "pl"
