@@ -3,6 +3,7 @@ export PATH="$HOME/.local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 export LANG="en_IE.UTF-8"
 export LESS="-R"
+export SHELL=/bin/zsh
 
 # make gui apps work
 export QT_QPA_PLATFORMTHEME=qt5ct
