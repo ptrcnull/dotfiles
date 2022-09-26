@@ -137,7 +137,19 @@ searchpkg() {
 	apk search --description -v "$@" | sed -E 's/(.*)-([^-]*-r[0-9]+)/\x1b[1m\1\x1b[0m \2/;s/^/\n/;s/ - /\n/'
 }
 
-alias patch2log='rg Subject | cut -d" " -f4- | wrl echo "> - $line"'
+patch2log() {
+	local url="$(wl-paste -t text/plain)"
+	local repo_url=${url%/compare*}
+	(
+		echo "[\`${url#*compare/}\`]($url)"
+		echo
+		curl $url.patch \
+			| rg -U -e "Subject: .*(\n .*)*" -e "From " \
+			| sd "\n " " " \
+			| sd "From (.{8}).*\nSubject: \[.*?\] (.*)" '> [`$1`]('$repo_url'/commit/$1) $2  ' \
+			| sd "#(\d+)" '[#$1]('$repo_url'/issues/$1)'
+	) | wl-copy
+}
 
 __ptrc_set_title() {
   title="$1"
