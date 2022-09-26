@@ -1,0 +1,17 @@
+#!/bin/sh
+
+escape() {
+	printf "%s" "$1" | sed 's#\\#\\\\#g'
+}
+
+if [ "$BUFFER" = "$SENDER" ]; then
+    title="[$BUFFER]"
+else
+    title="[$BUFFER] $SENDER"
+fi
+
+focus=$(swaymsg -t get_tree | jq -r '..|objects|select(.focused==true)|.name' | grep -c ^senpai)
+
+if [ "$focus" -eq 0 ] || [ "$HERE" -eq 0 ]; then
+	notify-send "$title" "$(escape "$MESSAGE")"
+fi
