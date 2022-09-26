@@ -273,6 +273,11 @@ bindkey '^[[1;5C' forward-word
 # [Ctrl-LeftArrow] - move backward one word
 bindkey '^[[1;5D' backward-word
 
+# Enable Ctrl-x-e to edit command line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+
 if [[ -d "$HOME/Library/Android/sdk" ]]; then
   export ANDROID_HOME="$HOME/Library/Android/sdk"
   export PATH=$ANDROID_HOME/tools:$PATH
