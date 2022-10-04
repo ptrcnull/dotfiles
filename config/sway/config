@@ -49,6 +49,9 @@ bindsym XF86PickupPhone exec playerctl previous
 bindsym XF86HangupPhone exec playerctl next
 bindsym XF86Favorites exec playerctl play-pause
 
+bindsym $mod+Shift+Ctrl+Minus output * dpms off
+bindsym $mod+Shift+Ctrl+Equal output * dpms on
+
 input * {
 	xkb_layout "pl"
 }
