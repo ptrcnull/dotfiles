@@ -1,0 +1,8 @@
+#!/bin/sh
+
+git for-each-ref --shell --format '%(refname:short) %(contents:subject)' refs/heads | while read line; do
+	eval set -- $line
+	if git log --oneline origin/master | head -n 2000 | grep -q -F "$2"; then
+		git branch -D "$1"
+	fi
+done
