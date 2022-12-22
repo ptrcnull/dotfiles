@@ -326,3 +326,22 @@ add-zsh-hook -Uz chpwd osc7
 
 # disable xoff/xon
 stty -ixoff -ixon
+
+if [ "$SSH_TTY" ]; then
+	if [ -d "/run/user/$(id -u)" ]; then
+		export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+	else
+		if [ -d "/tmp/run-$(id -u)" ]; then
+			export XDG_RUNTIME_DIR="/tmp/run-$(id -u)"
+		fi
+	fi
+
+	if pidof swaync >/dev/null; then
+		tr '\0' '\n' < "/proc/$(pidof swaync)/environ" \
+			| rg -e "DISPLAY" -e "SWAYSOCK" \
+			| while read line; do export $line; done
+	fi
+	if [ -S "$XDG_RUNTIME_DIR/bus" ]; then
+		export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+	fi
+fi
