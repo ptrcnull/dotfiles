@@ -187,10 +187,6 @@ alias grbc='git rebase --continue'
 
 alias history='fc -l 0'
 
-git-commit-title() {
-	git cat-file -p "$1" | tail -n +6 | head -n 1
-}
-
 commit-aports() {
 	git status --porcelain | cut -c4- | cut -d/ -f1-2 | while read line; do
 		git add $line
