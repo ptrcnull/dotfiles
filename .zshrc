@@ -139,10 +139,6 @@ nb() {
   git checkout -b $1 master
 }
 
-searchpkg() {
-	apk search --description -v "$@" | sed -E 's/(.*)-([^-]*-r[0-9]+)/\x1b[1m\1\x1b[0m \2/;s/^/\n/;s/ - /\n/'
-}
-
 patch2log() {
 	local url="$(wl-paste -t text/plain)"
 	local repo_url=${url%/compare*}
