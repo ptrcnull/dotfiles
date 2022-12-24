@@ -57,7 +57,11 @@ alias ll='ls -lah'
 alias m4a='youtube-dl --o "%(title)s.%(ext)s" --format m4a --add-metadata'
 alias gitresethard='git reset --hard HEAD && git clean -df'
 alias dps='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
-alias nano='micro'
+if iscmd hx; then
+	alias nano='hx'
+elif iscmd micro; then
+	alias nano='micro'
+fi
 alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
 alias wrl='while { read line }'
@@ -96,7 +100,9 @@ cpf() {
 	wl-copy --type text/uri-list "file://$(realpath $1)"
 }
 
-if iscmd micro; then
+if iscmd hx; then
+	export EDITOR=hx
+elif iscmd micro; then
 	export EDITOR=micro
 else
 	export EDITOR=nano
