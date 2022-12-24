@@ -9,6 +9,7 @@ exec logwrap -n pipewire /usr/libexec/pipewire-launcher
 exec logwrap swaync
 exec logwrap syncthing
 exec swaybg -i /home/patrycja/Cloud/wallpaper2.jpg
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY
 
 bindsym --locked $mod+k exec "sleep 0.2; doas suspend"
 bindsym $mod+Shift+n exec swaync-client -t
