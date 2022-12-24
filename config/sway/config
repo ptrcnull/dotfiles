@@ -1,5 +1,10 @@
 set $mod Mod4
 
+exec dbus-update-activation-environment --systemd DISPLAY MOZ_DBUS_REMOTE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec /usr/libexec/xdg-desktop-portal
+exec /usr/libexec/xdg-desktop-portal-gtk
+exec /usr/libexec/xdg-desktop-portal-wlr
+
 output "Hewlett Packard LA2405 CN412306V3" mode 1920x1200@59.950Hz position 0,0
 output "that other shit monitor todo fill" mode 1920x1080@239.964Hz position 0,120
 output eDP-1 position 0,1200
@@ -9,7 +14,6 @@ exec logwrap -n pipewire /usr/libexec/pipewire-launcher
 exec logwrap swaync
 exec logwrap syncthing
 exec swaybg -i /home/patrycja/Cloud/wallpaper2.jpg
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY
 
 bindsym --locked $mod+k exec "sleep 0.2; doas suspend"
 bindsym $mod+Shift+n exec swaync-client -t
