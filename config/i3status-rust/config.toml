@@ -72,6 +72,7 @@ on_click = "pavucontrol"
 "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra3" = "monitor"
 "alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_DWH2041023VL1MQAH-00.analog-stereo" = "dongle"
 "alsa_output.pci-0000_00_1f.3.analog-stereo" = "speaker"
+"alsa_output.pci-0000_08_00.1.hdmi-stereo" = "hdmi"
 
 [[block]]
 if_command = "[ $(hostname) = toshiro ]"
