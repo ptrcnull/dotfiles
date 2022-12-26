@@ -54,7 +54,6 @@ alias gdb='gdb -q'
 alias lls='ls'
 alias sl='ls'
 alias ll='ls -lah'
-alias m4a='youtube-dl --o "%(title)s.%(ext)s" --format m4a --add-metadata'
 alias gitresethard='git reset --hard HEAD && git clean -df'
 alias dps='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
 if iscmd hx; then
