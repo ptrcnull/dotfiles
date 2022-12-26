@@ -2,7 +2,7 @@
 address sparkle.torastian.com
 nickname ptrc
 username ptrcnull
-password-cmd bw get password IRC
+password-cmd secret-tool lookup app irc
 typings false
 pane-widths {
   nicknames 0
