@@ -40,15 +40,20 @@ if [ -d "$HOME"/.zsh-custom ]; then
 	rmdir "$HOME"/.zsh-custom
 fi
 
+install() {
+  # screw you coreutils install and your ugly messages
+  command install -Dv $@ | grep -v removed
+}
+
 echo "[*] installing config files"
-install -Dm644 .zshrc -t "$HOME"
+install -m644 .zshrc -t "$HOME"
 find config -type f | while read file; do
-	busybox install -Dv $file $(echo $file | sed "s|config|$HOME/.config|")
+	install $file $(echo $file | sed "s|config|$HOME/.config|")
 done
 
 echo "[*] installing executables"
 find bin -type f | while read file; do
-	install -Dv $file $(echo $file | sed "s|bin|$HOME/.local/bin|")
+	install $file $(echo $file | sed "s|bin|$HOME/.local/bin|")
 done
 
 
@@ -103,5 +108,7 @@ if [ -d "$HOME"/.zsh ]; then
   echo "[*] cleaning up .zsh"
   rm -rf "$HOME"/.zsh
 fi
+
+unfunction install
 
 exec zsh
