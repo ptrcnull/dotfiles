@@ -18,15 +18,12 @@ plugins_git="
   https://github.com/zsh-users/zsh-autosuggestions
 "
 
-if ! command -v curl >/dev/null; then
-  echo "[!] curl not found"
-  exit 1
-fi
-
-if ! command -v git >/dev/null; then
-  echo "[!] git not found"
-  exit 1
-fi
+for cmd in curl git sed install find; do
+  if ! command -v $cmd >/dev/null; then
+    echo "[!] $cmd not found"
+    exit 1
+  fi
+done
 
 set -e
 
