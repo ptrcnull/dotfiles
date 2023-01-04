@@ -61,9 +61,8 @@ if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/auth
   curl -L https://keys.ptrc.pl >> "$HOME"/.ssh/authorized_keys
 fi
 
-# if on alpine 3.16, install stuff system-wide
-. /etc/os-release
-if [ "$ID" = "alpine" ] && [[ "$VERSION_ID" == "3.16"* ]]; then
+# if on alpine, install stuff system-wide
+if command -v apk >/dev/null; then
   elevate=
 
   if [ "$(id -u)" != 0 ]; then
