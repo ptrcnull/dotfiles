@@ -312,6 +312,8 @@ zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
 # set word characters
 WORDCHARS=''
 
+autoload -Uz add-zsh-hook
+
 # send current directory to the terminal
 osc7() {
     setopt localoptions extendedglob
