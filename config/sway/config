@@ -27,7 +27,7 @@ bindsym $mod+u exec ~/.local/bin/sway-toggle-stop
 bindsym Print exec grim -g "$(slurp -o)" - | wl-copy -t image/png
 bindsym Shift+Print exec grim - | wl-copy -t image/png
 bindsym Ctrl+Print exec grim "$HOME/Documents/Screenshot-$(date -Iseconds | sed 's/\+.*//;s/T/_/').png"
-bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | imv -f -
+bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | swayimg -f -
 
 bindsym $mod+d exec logwrap rofi -modi drun -show drun -show-icons
 bindsym Mod1+F2 exec logwrap rofi -show run
