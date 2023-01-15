@@ -184,6 +184,13 @@ alias grm='EDITOR=true git rebase --autosquash -i origin/master'
 alias gr='git rebase'
 alias grbc='git rebase --continue'
 
+gfork() {
+	local origin="$(git remote get-url origin)"
+	local repo_name="${${origin%/}##*/}"
+	local host="${${origin#https://}%%/*}"
+	git remote add fork "git@$host:ptrcnull/$repo_name"
+}
+
 alias history='fc -l 0'
 
 commit-aports() {
