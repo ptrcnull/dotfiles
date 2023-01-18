@@ -1,0 +1,17 @@
+#!/bin/sh
+
+url=$(
+	{
+		if wl-paste --list-types | grep -Fq 'image/png'; then
+			wl-paste -t image/png
+		else
+			wl-paste
+		fi
+	} | gay
+)
+if [ "$?" = 0 ]; then
+	echo -n "$url" | wl-copy
+	notify-send "upload" "$url"
+else
+	notify-send "upload" "failed :<"
+fi
