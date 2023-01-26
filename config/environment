@@ -15,6 +15,7 @@ export GDK_BACKEND=wayland
 export SDL_VIDEODRIVER=wayland # for extra spicyness
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
+export MOZ_DBUS_REMOTE=1
 
 # silence, software
 export ALSOFT_LOGLEVEL=0
