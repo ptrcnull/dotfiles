@@ -1,0 +1,12 @@
+#!/bin/sh
+
+Xephyr -br -ac -noreset -screen 1920x1080 :1 &
+sleep 2
+export DISPLAY=:1
+export _NO_ENVIRONMENT=1
+unset GDK_BACKEND
+unset WAYLAND_DISPLAY
+unset QT_QPA_PLATFORM
+unset XDG_SESSION_TYPE
+unset SDL_VIDEODRIVER
+exec fluxbox
