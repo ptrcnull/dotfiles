@@ -1,0 +1,36 @@
+#!/usr/bin/node
+
+const fs = require('fs')
+
+const START = '<pre style="white-space: pre-wrap">'
+const END = '</pre>'
+
+async function main() {
+	let url = process.argv[2]
+  if (!url) {
+    console.log('usage: fetch-thread <url>')
+    process.exit(1)
+  }
+
+  while (url) {
+    const res = await fetch(url).then(res => res.text())
+    const filename = url.split('lists/')[1].replace(/\//g, '-') + '.eml'
+    console.log('fetching', filename)
+    // url = null
+    let content = res.split(START)[1].split(END)[0].trimStart()
+    content = content.replace(/<a href=".*">(.*)<\/a>/g, '$1')
+    content = content
+      .replace(/&lt;/g, '<')
+      .replace(/&#64;/g, '@')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
+    fs.writeFileSync(filename, content, 'utf-8')
+    if (res.includes('[thread-next')) {
+      const relativeURL = res.match(/<a href="([^"]+?)">\[thread-next/)[1]
+      url = new URL(url + '/../' + relativeURL).href
+    } else {
+      url = null
+    }
+  }
+}
+main()
