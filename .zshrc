@@ -7,7 +7,9 @@ load() {
 	[ -f "$1" ] && . "$1"
 }
 
-load "$HOME/.config/environment"
+if ! [ "$_NO_ENVIRONMENT" ]; then
+	load "$HOME/.config/environment"
+fi
 
 if [ -d /usr/share/zsh/plugins ] && [ -d /usr/share/zsh/plugins/zsh-autosuggestions ]; then
 	plugins="/usr/share/zsh/plugins"
