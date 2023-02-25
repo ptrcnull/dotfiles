@@ -1,5 +1,8 @@
 icons_format = " "
 
+[icons]
+icons = "awesome6"
+
 [theme.overrides]
 separator = ""
 critical_bg = "#ff0055"
@@ -13,59 +16,56 @@ warning_fg = "#000000"
 [[block]]
 block = "net"
 device = "wg0"
-format = "wg0"
-hide_inactive = true
+format = " wg0 "
+missing_format = ""
 
 [[block]]
 block = "net"
 device = "br0"
-format = "br0({ip})"
-hide_inactive = true
+format = " br0($ip) "
+missing_format = ""
 
 [[block]]
 block = "net"
 device = "eth0"
-format = "eth0({ip})"
-hide_inactive = true
+format = " eth0($ip) "
+missing_format = ""
 
 [[block]]
 block = "net"
 device = "wlan0"
-format = "wlan0({ip})"
-format_alt = "wlan0({ssid};{signal_strength};{ip})"
-hide_inactive = true
+format = " wlan0($ip) "
+format_alt = " wlan0($ssid;$signal_strength;$ip) "
+missing_format = ""
 
 [[block]]
 block = "cpu"
-format = "c{utilization:0}"
+format = " c$utilization.eng(width:2) "
 
 [[block]]
 block = "memory"
-format_mem = "m{mem_used_percents:02}"
-on_click = "" # don't show swap
+format = " m$mem_used_percents.eng(width:2) "
 
 [[block]]
 if_command = "[ $(hostname) = toshiro ]"
 block = "temperature"
-collapsed = false
 chip = "k10temp-pci-00c3"
-format = "{average:1}"
-on_click = "" # don't collapse
+format = " $average "
 
 [[block]]
 if_command = "[ $(hostname) = katsumi ]"
 block = "temperature"
-collapsed = false
 chip = "coretemp-isa-0000"
-format = "{average:1}"
-on_click = "" # don't collapse
+format = " $average "
 
 [[block]]
 block = "sound"
-format = "{output_description}({volume})"
+format = " $output_name($volume) "
 step_width = 5
 show_volume_when_muted = true
-on_click = "pavucontrol"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
 [block.mappings]
 "alsa_output.pci-0000_07_00.6.analog-stereo" = "speaker"
 "alsa_output.pci-0000_07_00.6.HiFi__hw_Generic_1__sink" = "built-in"
@@ -77,22 +77,36 @@ on_click = "pavucontrol"
 [[block]]
 if_command = "[ $(hostname) = toshiro ]"
 block = "backlight"
+format = " $brightness "
+[[block.click]]
+button = "left"
+cmd = "brightnessctl set 100%"
+[[block.click]]
+button = "right"
+cmd = "brightnessctl set 10%"
+[[block.click]]
+button = "up"
+cmd = "brightnessctl set 10+%"
+[[block.click]]
+button = "down"
+cmd = "brightnessctl set 10-%"
 
 [[block]]
 block = "custom"
 interval = 1
 command = "</sys/class/power_supply/AC/online"
+format = " $text "
 hide_when_empty = true
 
 [[block]]
 if_command = "[ -d /sys/class/power_supply/BAT0 ]"
 block = "battery"
 interval = 10
-format = "{percentage}"
-full_format = "{percentage}"
-hide_missing = true
+format = " $percentage "
+full_format = " $percentage "
+missing_format = ""
 
 [[block]]
 block = "time"
 interval = 1
-format = "%Y-%m-%d %H:%M:%S"
+format = " $timestamp.datetime(f:'%Y-%m-%d %H:%M:%S') "
