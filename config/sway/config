@@ -13,7 +13,7 @@ output eDP-1 position 0,1200
 exec logwrap -n pipewire /usr/libexec/pipewire-launcher
 exec logwrap swaync
 exec logwrap syncthing
-exec swaybg -i /home/patrycja/Cloud/wallpaper2.jpg
+exec swaybg -i /home/patrycja/Cloud/lycoreco_wallpaper.jpg
 
 bindsym --locked $mod+k exec "sleep 0.2; doas suspend"
 bindsym $mod+Shift+n exec swaync-client -t
