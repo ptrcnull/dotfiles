@@ -193,6 +193,10 @@ gfork() {
 	git remote add fork "git@$host:ptrcnull/$repo_name"
 }
 
+gfmr() {
+	git fetch origin +refs/merge-requests/$1/head:refs/remotes/origin/merge-requests/$1
+}
+
 alias history='fc -l 0'
 
 commit-aports() {
