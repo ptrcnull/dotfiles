@@ -1,0 +1,6 @@
+#!/bin/zsh
+read -r pass
+exec <&2
+while echo -n '$ '; read idx; do
+	echo "${pass[$idx]}"
+done
