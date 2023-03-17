@@ -1,5 +1,5 @@
 # to be used with https://github.com/ptrcnull/kouhai
-address sparkle.torastian.com
+address sparkle.torastian.com:6797
 nickname ptrc
 username ptrcnull
 password-cmd hiq -dFpassword app=irc
