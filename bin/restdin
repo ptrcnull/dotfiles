@@ -1,0 +1,2 @@
+#!/bin/sh
+exec fdmove -c 0 2 "$@"
