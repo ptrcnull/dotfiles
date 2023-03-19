@@ -1,14 +1,20 @@
 #!/bin/sh
 
-url=$(
-	{
-		if wl-paste --list-types | grep -Fq 'image/png'; then
-			wl-paste -t image/png
-		else
-			wl-paste
-		fi
-	} | gay
-)
+if wl-paste --list-types | grep -Fq 'image/png'; then
+	url=$(wl-paste -t image/png | gay)
+elif wl-paste --list-types | grep -Fq 'text/uri-list'; then
+	if [ "$(wl-paste -t text/uri-list | wc -l)" -gt 2 ]; then
+		notify-send "upload" "please select only one file"
+		exit 1
+	else
+		path="$(wl-paste -t text/uri-list | tr -d '\r\n')"
+		echo "getting file from $path"
+		url=$(cat "${path#file://}" | gay)
+	fi
+else
+	url=$(wl-paste | gay)
+fi
+
 if [ "$?" = 0 ]; then
 	echo -n "$url" | wl-copy
 	notify-send "upload" "$url"
