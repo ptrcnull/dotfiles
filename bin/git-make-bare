@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -eu
+
+if ! [ -d "$1" ]; then
+	echo "no such directory: $1"
+	exit 1
+fi
+
+if ! [ -d "$1"/.git ]; then
+	echo "not a git repository: $1"
+	exit 1
+fi
+
+if [ "$(git -C "$1" status --porcelain | wc -l)" != 0 ]; then
+	echo "repo unclean: $1"
+	exit 1
+fi
+
+git -C "$1" config core.bare true
+mv "$1"/.git "$1.git"
+rm -r "$1"
