@@ -1,0 +1,8 @@
+#!/bin/sh
+
+tag="$1"
+shift
+
+"$@" | while read line; do
+	echo "$tag: $line"
+done
