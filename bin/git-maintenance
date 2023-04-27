@@ -1,0 +1,5 @@
+#!/bin/sh
+
+git repack -Ad
+git gc --auto
+git commit-graph write --reachable --changed-paths
