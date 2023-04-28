@@ -20,3 +20,6 @@ export MOZ_DBUS_REMOTE=1
 # silence, software
 export ALSOFT_LOGLEVEL=0
 export QT_LOGGING_RULES="*.wayland=false;qt.svg=false;qt.gui.imageio.jpeg=false"
+
+# theem
+export GTK_THEME=Adwaita:dark
