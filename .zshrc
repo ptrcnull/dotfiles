@@ -183,6 +183,7 @@ alias gpa='git push aports'
 alias grm='EDITOR=true git rebase --autosquash -i origin/master'
 alias gr='git rebase'
 alias grbc='git rebase --continue'
+alias gch='git checkout'
 
 gfork() {
 	local origin="$(git remote get-url origin)"
