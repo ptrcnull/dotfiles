@@ -28,14 +28,14 @@ missing_format = ""
 [[block]]
 block = "net"
 device = "eth0"
-format = " eth0($ip) "
+format = " eth0({$ip|no ip}) "
 missing_format = ""
 
 [[block]]
 block = "net"
 device = "wlan0"
-format = " wlan0($ip) "
-format_alt = " wlan0($ssid;$signal_strength;$ip) "
+format = " wlan0({$ip|no ip}) "
+format_alt = " wlan0($ssid;$signal_strength;{$ip|no ip}) "
 missing_format = ""
 
 [[block]]
