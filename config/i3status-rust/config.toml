@@ -78,18 +78,6 @@ cmd = "pavucontrol"
 if_command = "[ $(hostname) = toshiro ]"
 block = "backlight"
 format = " $brightness "
-[[block.click]]
-button = "left"
-cmd = "brightnessctl set 100%"
-[[block.click]]
-button = "right"
-cmd = "brightnessctl set 10%"
-[[block.click]]
-button = "up"
-cmd = "brightnessctl set 10+%"
-[[block.click]]
-button = "down"
-cmd = "brightnessctl set 10-%"
 
 [[block]]
 block = "custom"
