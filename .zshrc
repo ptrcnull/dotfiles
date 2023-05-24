@@ -69,6 +69,7 @@ alias wrl='while { read line }'
 alias falsedo='false; while { [ $? != 0 ] }'
 alias rga='rg -uuui'
 alias zwsp='printf "\u200b" | wl-copy'
+alias cfz='cd $(find . -type d -print | fzf)'
 
 alias c='docker-compose'
 if ! iscmd docker-compose; then
