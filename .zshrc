@@ -50,7 +50,6 @@ alias ip='ip --color=auto'
 alias diff='diff --color=auto'
 alias ncdu='ncdu --color off'
 alias lldb='TERM=xterm-256color lldb'
-alias apatch='CUSTOM_PROMPT_TAG=apatch apatch'
 alias gdb='gdb -q'
 
 alias lls='ls'
