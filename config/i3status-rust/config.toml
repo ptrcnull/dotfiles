@@ -67,13 +67,17 @@ show_volume_when_muted = true
 button = "left"
 cmd = "pavucontrol"
 [block.mappings]
+# toshiro
 "alsa_output.pci-0000_07_00.6.analog-stereo" = "speaker"
 "alsa_output.pci-0000_07_00.6.HiFi__hw_Generic_1__sink" = "built-in"
 "alsa_output.pci-0000_01_00.1.hdmi-stereo-.*" = "monitor"
-"alsa_output.usb-Apple__Inc.*" = "dongle"
+# katsumi
+"alsa_output.pci-0000_0a_00.4.analog-stereo" = "line out"
 "alsa_output.pci-0000_00_1f.3.analog-stereo" = "speaker"
 "alsa_output.pci-0000_08_00.1.hdmi-stereo" = "hdmi"
+# other
 "alsa_output.usb-Plantronics.*" = "headset"
+"alsa_output.usb-Apple__Inc.*" = "dongle"
 
 [[block]]
 if_command = "[ $(hostname) = toshiro ]"
