@@ -60,7 +60,7 @@ format = " $average "
 
 [[block]]
 block = "sound"
-format = " $output_name($volume) "
+format = " $output_name($volume) | launching pipewire... "
 step_width = 5
 show_volume_when_muted = true
 [[block.click]]
