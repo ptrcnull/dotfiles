@@ -22,13 +22,15 @@ missing_format = ""
 [[block]]
 block = "net"
 device = "br0"
-format = " br0($ip) "
+format = " br0({$ip|no ip}) "
+inactive_format = " br0(down) "
 missing_format = ""
 
 [[block]]
 block = "net"
 device = "eth0"
 format = " eth0({$ip|no ip}) "
+inactive_format = " eth0(down) "
 missing_format = ""
 
 [[block]]
@@ -36,6 +38,7 @@ block = "net"
 device = "wlan0"
 format = " wlan0({$ip|no ip}) "
 format_alt = " wlan0($ssid;$signal_strength;{$ip|no ip}) "
+inactive_format = " wlan0(down) "
 missing_format = ""
 
 [[block]]
