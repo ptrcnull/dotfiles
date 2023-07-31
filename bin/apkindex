@@ -1,0 +1,18 @@
+#!/bin/sh
+
+arch="$(apk --print-arch)"
+
+# get_alpine_index <spec>
+get_aports_index() {
+	file="/var/lib/mirror/$1/$arch/APKINDEX.tar.gz"
+	if [ -f "$file" ]; then
+		exec tar xOf "$file" APKINDEX
+	else
+		exec curl -s "https://dl-cdn.alpinelinux.org/alpine/$1/$arch/APKINDEX.tar.gz" | tar xzO APKINDEX
+	fi
+}
+
+case "$1" in
+	v3.*/*|edge/*) get_aports_index "$1" ;;
+	*) echo "huh?"; exit 1 ;;
+esac
