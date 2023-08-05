@@ -1,0 +1,29 @@
+#!/bin/sh
+
+if ! [ "$1" ]; then
+	echo "usage: apkmr <mr_id> [...]"
+	exit 1
+fi
+
+mr_id="$1"
+shift
+
+job_id=$(
+	curl https://gitlab.alpinelinux.org/api/graphql --data query='{
+	  project(fullPath:"alpine/aports") {
+	    mergeRequest(iid:"'$mr_id'") {
+	      headPipeline {
+	        jobs {
+	          nodes {
+	            name
+	            id
+	            status
+	          }
+	        }
+	      }
+	    }
+	  }
+	}' | jq -r ".data.project.mergeRequest.headPipeline.jobs.nodes[] | select(.name == \"build-$(apk --print-arch)\").id" | cut -d/ -f5
+)
+job_url="https://gitlab.alpinelinux.org/alpine/aports/-/jobs/$job_id/artifacts/raw/packages"
+exec apk --allow-untrusted -X "$job_url/main" -X "$job_url/community" -X "$job_url/testing" "$@"
