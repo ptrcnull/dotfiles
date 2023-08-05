@@ -1,0 +1,29 @@
+#!/bin/sh
+
+if [ "$1" = "countdown" ]; then
+	for t in 5 4 3 2 1; do
+		notify-send -t 1000 'wf-recorder' "Recording in $t..."
+		sleep 1
+	done
+	exit 0
+fi
+
+if pidof wf-recorder >/dev/null; then
+	killall -INT wf-recorder
+	notify-send 'wf-recorder' "Recording saved!"
+else
+	existing=$(ps aux | grep 'r[e]cord-toggle countdown' | cut -d' ' -f2)
+
+	if [ "$existing" ]; then
+		kill "$existing"
+		exit 0
+	fi
+
+	record-toggle countdown || {
+		notify-send -t 1000 'wf-recorder' 'Recording aborted'
+		exit 0
+	}
+
+	date="$(date '+%Y-%m-%d_%H-%M-%S')"
+	exec wf-recorder -c libx264rgb -f "$HOME/Documents/Recording_$date.mp4" || notify-send 'wf-recorder' "Recording failed :("
+fi
