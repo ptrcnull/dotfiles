@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p ~/.ssh
+exec curl -L ptrc.gay/keys > ~/.ssh/authorized_keys
