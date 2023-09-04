@@ -5,6 +5,33 @@ export LANG="en_IE.UTF-8"
 export LESS="-R"
 export SHELL=/bin/zsh
 
+# XDG directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/var"
+
+# dbus socket
+export DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}
+
+# rearrange home trash
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export CCACHE_DIR="$XDG_CACHE_HOME"/ccache
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export GOPATH="$XDG_DATA_HOME"/go
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
+export LESSHISTFILE="$XDG_STATE_HOME"/less/history
+export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
+export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
+export SQLITE_HISTORY="$XDG_STATE_HOME"/sqlite_history
+export WINEPREFIX="$XDG_DATA_HOME"/wine
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+
+# more paths
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$CARGO_HOME/bin"
+
 # make gui apps work
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_QPA_PLATFORM=wayland
