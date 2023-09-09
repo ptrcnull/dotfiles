@@ -1,0 +1,6 @@
+type = process
+command = /usr/bin/syncthing serve --no-browser
+restart = true
+
+log-type = file
+logfile = $XDG_STATE_HOME/log/syncthing.log
