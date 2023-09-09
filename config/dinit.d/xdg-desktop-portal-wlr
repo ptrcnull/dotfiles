@@ -1,0 +1,7 @@
+type = process
+command = /usr/libexec/xdg-desktop-portal-wlr
+restart = true
+depends-on = xdg-desktop-portal
+
+log-type = file
+logfile = $XDG_STATE_HOME/log/xdg-desktop-portal-wlr.log
