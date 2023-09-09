@@ -1,0 +1,14 @@
+type = internal
+depends-on = sway.trigger
+depends-on = dbus-daemon
+
+# audio
+depends-on = pipewire
+depends-on = pipewire-pulse
+depends-on = wireplumber
+
+# portals
+depends-on = xdg-desktop-portal
+depends-on = xdg-desktop-portal-gtk
+depends-on = xdg-desktop-portal-wlr
+
