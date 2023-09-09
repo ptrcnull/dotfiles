@@ -1,0 +1,4 @@
+type = process
+command = /usr/bin/iwgtk -i
+restart = true
+depends-on = sway.trigger
