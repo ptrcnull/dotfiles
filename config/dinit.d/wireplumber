@@ -2,3 +2,6 @@ type = process
 command = /usr/bin/wireplumber
 restart = true
 depends-on = pipewire
+
+log-type = file
+logfile = $XDG_STATE_HOME/log/wireplumber.log

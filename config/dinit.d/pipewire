@@ -1,3 +1,6 @@
 type = process
 command = /usr/bin/pipewire
 restart = true
+
+log-type = file
+logfile = $XDG_STATE_HOME/log/pipewire.log
