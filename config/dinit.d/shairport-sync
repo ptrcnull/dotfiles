@@ -1,6 +1,7 @@
 type = process
 command = /usr/bin/shairport-sync -o pa
 restart = true
+depends-on = pipewire-pulse
 
 log-type = file
 logfile = $XDG_STATE_HOME/log/shairport-sync.log
