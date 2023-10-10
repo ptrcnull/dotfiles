@@ -12,3 +12,5 @@ depends-on = xdg-desktop-portal
 depends-on = xdg-desktop-portal-gtk
 depends-on = xdg-desktop-portal-wlr
 
+# other
+depends-on = swaync
