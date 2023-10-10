@@ -80,6 +80,10 @@ if ! iscmd docker && iscmd podman; then
 	alias c='podman-compose'
 fi
 
+if iscmd bsdtar; then
+	alias tar='bsdtar'
+fi
+
 wget() {
 	local dl='curl -LO'
 	if iscmd aria2c; then
