@@ -1,5 +1,5 @@
 type = process
-command = /usr/libexec/xdg-desktop-portal-gtk
+command = /usr/libexec/xdg-desktop-portal-gtk --replace
 restart = true
 depends-on = xdg-desktop-portal
 
