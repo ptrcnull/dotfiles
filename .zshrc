@@ -85,13 +85,8 @@ if iscmd bsdtar; then
 fi
 
 wget() {
-	local dl='curl -LO'
-	if iscmd aria2c; then
-		dl='aria2c'
-	fi
-
 	if [ $# = 1 ]; then
-		$dl "$1"
+		command curl -LO "$1"
 	else
 		command wget "$@"
 	fi
