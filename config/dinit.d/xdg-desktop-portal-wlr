@@ -1,5 +1,5 @@
 type = process
-command = /usr/libexec/xdg-desktop-portal-wlr
+command = /usr/libexec/xdg-desktop-portal-wlr --replace
 restart = true
 depends-on = xdg-desktop-portal
 
