@@ -12,3 +12,4 @@ pane-widths {
 colors {
   unread "#00ffff"
 }
+on-highlight-notify false
