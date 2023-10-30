@@ -1,7 +1,7 @@
 type = process
-command = /usr/bin/himitsud
+command = /usr/bin/swaync
 restart = true
 depends-on = sway.trigger
 
 log-type = file
-logfile = $XDG_STATE_HOME/log/himitsud.log
+logfile = $XDG_STATE_HOME/log/swaync.log
