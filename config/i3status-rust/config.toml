@@ -107,6 +107,7 @@ block = "battery"
 interval = 10
 format = " $percentage "
 full_format = " $percentage "
+empty_format = " $percentage "
 missing_format = ""
 
 [[block]]
