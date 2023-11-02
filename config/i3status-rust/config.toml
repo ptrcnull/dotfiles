@@ -85,6 +85,8 @@ cmd = "pavucontrol"
 "alsa_output.pci-0000_0a_00.4.analog-stereo" = "line out"
 "alsa_output.pci-0000_00_1f.3.analog-stereo" = "speaker"
 "alsa_output.pci-0000_08_00.1.hdmi-stereo" = "hdmi"
+# koyuki
+"alsa_output._sys_devices_platform_sound_sound_card0.*" = "built-in"
 # other
 "alsa_output.usb-Plantronics.*" = "headset"
 "alsa_output.usb-Apple__Inc.*" = "dongle"
@@ -102,12 +104,28 @@ format = " $text "
 hide_when_empty = true
 
 [[block]]
+block = "custom"
+interval = 1
+command = "</sys/class/power_supply/CROS_USBPD_CHARGER0/online"
+format = " $text "
+hide_when_empty = true
+
+[[block]]
 if_command = "[ -d /sys/class/power_supply/BAT0 ]"
 block = "battery"
 interval = 10
 format = " $percentage "
 full_format = " $percentage "
 empty_format = " $percentage "
+missing_format = ""
+
+[[block]]
+if_command = "[ -d /sys/class/power_supply/sbs-6-000b ]"
+block = "battery"
+interval = 10
+device = "sbs-6-000b"
+format = " $percentage "
+full_format = " $percentage "
 missing_format = ""
 
 [[block]]
