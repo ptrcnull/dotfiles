@@ -60,6 +60,10 @@ input * {
 	xkb_layout "pl"
 }
 
+input type:keyboard {
+	xkb_options compose:rctrl
+}
+
 input type:touchpad {
 	natural_scroll enabled
 	tap enabled
