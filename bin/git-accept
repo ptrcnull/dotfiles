@@ -1,0 +1,18 @@
+#!/bin/sh
+
+case "$1" in
+""|-h|--help)
+	echo "usage: git accept <ours|theirs>"
+	exit 0
+	;;
+esac
+	
+
+if [ "$1" = "theirs" ]; then
+	repl='$1'
+else
+	repl='$2'
+fi
+
+git status --porcelain | rg UU | cut -c4- |\
+	xargs sd '<<<<<<< HEAD\n([\s\S]*?)(?:\n\|\|\|\|\|\|\| parent of[\s\S]*)?=======\n([\s\S]*)>>>>>>> .*\n' "$repl"
