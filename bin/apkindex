@@ -12,7 +12,17 @@ get_aports_index() {
 	fi
 }
 
+# get_all_indexes <ver>
+get_all_indexes() {
+	get_aports_index "$1/main"
+	get_aports_index "$1/community"
+	if [ "$1" == "edge" ]; then
+		get_aports_index "$1/testing"
+	fi
+}
+
 case "$1" in
 	v3.*/*|edge/*) get_aports_index "$1" ;;
+	v3.*|edge) get_all_indexes "$1" ;;
 	*) echo "huh?"; exit 1 ;;
 esac
