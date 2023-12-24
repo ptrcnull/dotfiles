@@ -4,6 +4,7 @@ nickname ptrc
 username ptrcnull
 password-cmd hiq -dFpassword app=irc
 typings false
+on-highlight-notify false
 pane-widths {
   nicknames 0
   channels 24
