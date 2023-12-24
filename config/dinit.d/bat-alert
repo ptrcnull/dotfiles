@@ -1,0 +1,7 @@
+type = process
+command = /home/patrycja/.local/bin/bat-alert
+restart = true
+depends-on = sway.trigger
+
+log-type = file
+logfile = $XDG_STATE_HOME/log/bat-alert.log
