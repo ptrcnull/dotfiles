@@ -1,5 +1,5 @@
 type = process
-command = /home/patrycja/.local/bin/bat-alert
+command = $HOME/.local/bin/bat-alert
 restart = true
 depends-on = sway.trigger
 
