@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$*" ]; then
+	doas redirfd -w 1 /proc/acpi/ibm/fan echo -n "$*"
+else
+	cat /proc/acpi/ibm/fan
+fi
