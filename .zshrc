@@ -199,8 +199,6 @@ gfmr() {
 
 alias history='fc -l 0'
 
-alias uppies='shuf | wrl restdin apklatest $line'
-
 commit-aports() {
 	git status --porcelain | cut -c4- | cut -d/ -f1-2 | while read line; do
 		git add $line
