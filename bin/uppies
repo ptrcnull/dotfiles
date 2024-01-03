@@ -15,5 +15,5 @@ shuf | parallel -j16 apklatest -q {} | while read -r line; do
   printf "%${cols}s" '' | tr ' ' '-'
   head */$1/APKBUILD
   printf "%${cols}s" '' | tr ' ' '-'
-  gum confirm && abump $1 $3
+  gum confirm && restdin abump $1 $3
 done
