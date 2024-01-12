@@ -1,0 +1,52 @@
+#!/bin/sh
+
+if [ "$#" -gt 1 ]; then
+	for id in $@; do
+		gmm $id
+	done
+	exit 0
+fi
+
+set -eu
+
+cd ~/aports
+
+curl https://gitlab.alpinelinux.org/alpine/aports/-/merge_requests/$1.patch | bat -l patch
+gum confirm "Continue?"
+
+glab api graphql -f query='{
+	project(fullPath:"alpine/aports") {
+	    mergeRequest(iid: "'$1'") {
+	    	headPipeline {
+	        jobs {
+	          nodes {
+	            webPath
+	            name
+	            status
+	          }
+	        }
+	      }
+	    }
+	  }
+	}
+' | jq '.data.project.mergeRequest.headPipeline.jobs.nodes[] | "\(.name) | \(.status) | \(.webPath)"' |\
+	sort |\
+	xargs gum choose |\
+	cut -d'|' -f3 |\
+	xargs -I{} curl https://gitlab.alpinelinux.org/{}/raw |\
+	rg -o \
+		--multiline --multiline-dotall \
+		--color=never \
+		'Signing the index...(\n.*?)(Handeling artifacts|Building package).*?\n' \
+		-r '$1' || echo "no logs?"
+
+gum confirm "Logs look good?"
+
+set +e
+echo "Attempting to merge..."
+glab mr merge --yes --auto-merge=false --rebase $1
+
+while [ "$?" != 0 ]; do
+	echo "Retrying the merge..."
+	glab mr merge --yes --auto-merge=false $1
+done
