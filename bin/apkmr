@@ -8,7 +8,9 @@ fi
 mr_id="$1"
 shift
 
-job_id=$(
+CARCH="$(apk --print-arch)"
+
+job_url=$(
 	curl https://gitlab.alpinelinux.org/api/graphql --data query='{
 	  project(fullPath:"alpine/aports") {
 	    mergeRequest(iid:"'$mr_id'") {
@@ -18,12 +20,19 @@ job_id=$(
 	            name
 	            id
 	            status
+              webPath
 	          }
 	        }
 	      }
 	    }
 	  }
-	}' | jq -r ".data.project.mergeRequest.headPipeline.jobs.nodes[] | select(.name == \"build-$(apk --print-arch)\").id" | cut -d/ -f5
+	}' | jq -r ".data.project.mergeRequest.headPipeline.jobs.nodes[] | select(.name == \"build-$CARCH\").webPath"
 )
-job_url="https://gitlab.alpinelinux.org/alpine/aports/-/jobs/$job_id/artifacts/raw/packages"
-exec apk --allow-untrusted -X "$job_url/main" -X "$job_url/community" -X "$job_url/testing" "$@"
+job_url="https://gitlab.alpinelinux.org/$job_url/artifacts/raw/packages"
+repos=""
+for r in main community testing; do
+	if [ $(curl -s -o /dev/null -w '%{http_code}' "$job_url/$r/$CARCH/APKINDEX.tar.gz") = "200" ]; then
+		repos="$repos -X $job_url/$r"
+	fi
+done
+exec apk --allow-untrusted $repos "$@"
