@@ -1,7 +1,6 @@
 set $mod Mod4
 
-exec dinitctl setenv DISPLAY MOZ_DBUS_REMOTE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dinitctl trigger sway.trigger
+exec dinitctl setenv DISPLAY MOZ_DBUS_REMOTE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dinitctl trigger sway.trigger
 exec dbus-update-activation-environment --systemd DISPLAY MOZ_DBUS_REMOTE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
 output "Lenovo Group Limited E24-28 VVA56970" mode 1920x1080@60.000Hz position 0,0
