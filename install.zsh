@@ -41,14 +41,9 @@ if [ -d "$HOME"/.zsh-custom ]; then
 fi
 
 install() {
-  if [ -d /Library ]; then
-    # macos why 😭
-    command install -dv "$(dirname "$2")" || true
-    command install -v $@
-  else
-    # screw you coreutils install and your ugly messages
-    command install -Dv $@ | grep -v removed
-  fi
+  command install -dv "$(dirname "$2")" || true
+  # screw you coreutils install and your ugly messages
+  command install -v $@ | grep -v removed
 }
 
 echo "[*] installing config files"
