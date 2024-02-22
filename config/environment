@@ -4,6 +4,7 @@ export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 export LANG="en_IE.UTF-8"
 export LESS="-R"
 export SHELL=/bin/zsh
+export COLORTERM=truecolor
 
 # XDG directories
 export XDG_CONFIG_HOME="$HOME/.config"
