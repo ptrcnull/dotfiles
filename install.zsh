@@ -64,8 +64,10 @@ if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/auth
   curl -L https://ptrc.gay/keys >> "$HOME"/.ssh/authorized_keys
 fi
 
+os_id="$( . /etc/os-release && echo "$ID" )"
+
 # if on alpine, install stuff system-wide
-if command -v apk >/dev/null; then
+if [ "$os_id" = "alpine" ]; then
   elevate=
 
   if [ "$(id -u)" != 0 ]; then
