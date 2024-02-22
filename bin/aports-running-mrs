@@ -1,0 +1,26 @@
+#!/bin/sh
+
+curl https://gitlab.alpinelinux.org/api/graphql -Fquery='{
+  project(fullPath:"alpine/aports") {
+    mergeRequests(state: opened, sort: UPDATED_DESC, first: 200) {
+      nodes {
+        title
+        webUrl
+        headPipeline {
+          active
+          jobs(statuses: [PENDING, RUNNING]) {
+            nodes {
+              name
+              status
+            }
+          }
+        }
+      }
+    }
+  }
+}' | fq -r '.data.project.mergeRequests.nodes[] | select(.headPipeline.jobs.nodes | length > 0) | {
+  _webUrl: .webUrl,
+  _title: .title,
+  running: [ .headPipeline.jobs.nodes[] | select(.status == "RUNNING") | .name ],
+  pending: [ .headPipeline.jobs.nodes[] | select(.status == "PENDING") | .name ]
+} | "\(._title)\nURL: \(._webUrl)\nrunning: \(.running)\npending: \(.pending)\n"'
