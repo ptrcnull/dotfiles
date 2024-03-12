@@ -1,4 +1,5 @@
 [alias]
+	local-tree = log --oneline --graph --decorate
 	tree = log --oneline --graph --decorate --all
 [init]
 	defaultBranch = master
