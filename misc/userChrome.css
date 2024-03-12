@@ -1,0 +1,29 @@
+/* remove the horizontal padding from bookmark bar elements */ 
+#personal-toolbar-empty-description, toolbarbutton.bookmark-item:not(.subviewbutton) {
+  padding: 0 4px !important;
+}
+
+/* make everything all neat and sharp */
+* {
+  border-radius: 0 !important;
+}
+
+.tab-background {
+  margin: 0 !important;
+  background-color: #111115;
+  border-right: 1px solid #333333;
+}
+
+.tab-background:is([selected], [multiselected]) {
+  box-shadow: none !important;
+  background-color: #2b2a33 !important;
+}
+
+/* that weird separator between pinned and not pinned */
+#tabbrowser-tabs[haspinnedtabs]:not([positionpinnedtabs]) > #tabbrowser-arrowscrollbox > .tabbrowser-tab:nth-child(1 of :not([pinned], [hidden])) {
+  margin: 0 !important;
+}
+
+.tabbrowser-tab {
+  padding: 0 !important;
+}
