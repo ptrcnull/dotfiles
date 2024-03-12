@@ -218,8 +218,8 @@ commit-aports() {
 	done
 }
 
-alias agl='firefox "https://gitlab.alpinelinux.org/alpine/aports/-/tree/master/${PWD##*aports/}"'
-alias buildlogs='firefox "https://build.alpinelinux.org/buildlogs/build-edge-x86_64/${PWD##*aports/}"'
+alias agl='xdg-open "https://gitlab.alpinelinux.org/alpine/aports/-/tree/master/${PWD##*aports/}"'
+alias buildlogs='xdg-open "https://build.alpinelinux.org/buildlogs/build-edge-x86_64/${PWD##*aports/}"'
 
 ## History file configuration
 HISTFILE="$HOME/.zsh_history"
