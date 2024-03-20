@@ -65,11 +65,6 @@ alias sl='ls'
 alias ll='ls -lah'
 alias gitresethard='git reset --hard HEAD && git clean -df'
 alias dps='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
-if iscmd hx; then
-	alias nano='hx'
-elif iscmd micro; then
-	alias nano='micro'
-fi
 alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
 alias wrl='while { read line }'
@@ -109,13 +104,7 @@ cpf() {
 	wl-copy --type text/uri-list "file://$(realpath $1)"
 }
 
-if iscmd hx; then
-	export EDITOR=hx
-elif iscmd micro; then
-	export EDITOR=micro
-else
-	export EDITOR=nano
-fi
+export EDITOR=nano
 
 [ -d "$HOME/flutter/bin" ] && export PATH="$HOME/flutter/bin:$PATH"
 [ -d "$HOME/.cargo/bin" ] && export PATH="$HOME/.cargo/bin:$PATH"
