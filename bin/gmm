@@ -34,11 +34,10 @@ glab api graphql -f query='{
 	xargs gum choose |\
 	cut -d'|' -f3 |\
 	xargs -I{} curl https://gitlab.alpinelinux.org/{}/raw |\
-	rg -o \
-		--multiline --multiline-dotall \
-		--color=never \
-		'Signing the index...(\n.*?)(Handeling artifacts|Building package).*?\n' \
-		-r '$1' || echo "no logs?"
+	rg -U \
+		-e '\-\-\- filelist.*\n\+\+\+ filelist.*\n@@.*\n([ \+-].*\n)+' \
+		-e '(No s|S)ize differences? for' |\
+	bat -l diff -p || echo "no logs?"
 
 gum confirm "Logs look good?"
 
