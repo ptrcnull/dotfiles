@@ -35,7 +35,7 @@ glab api graphql -f query='{
 	cut -d'|' -f3 |\
 	xargs -I{} curl https://gitlab.alpinelinux.org/{}/raw |\
 	rg -U \
-		-e '\-\-\- filelist.*\n\+\+\+ filelist.*\n@@.*\n([ \+-].*\n)+' \
+		-e '\-\-\- filelist.*\n\+\+\+ filelist.*\n([ \+-@].*\n)+' \
 		-e '(No s|S)ize differences? for' |\
 	bat -l diff -p || echo "no logs?"
 
