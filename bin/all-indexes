@@ -1,0 +1,16 @@
+#!/bin/sh
+
+CARCH="$(apk --print-arch)"
+
+rg -o -r '$1' '(?:^|@.* )((?:https://|/var|/home)[^ ]*)' /etc/apk/repositories | while read -r line; do
+	case "$line" in
+	http*)
+		hash="$(echo -n "$line/$CARCH/APKINDEX.tar.gz" | sha1sum | cut -c-8)"
+		echo "/var/cache/apk/APKINDEX.$hash.tar.gz"
+		;;
+	*)
+		echo "$line/$CARCH/APKINDEX.tar.gz"
+		;;
+	esac
+done | parallel -j4 tar xOf {} APKINDEX
+
