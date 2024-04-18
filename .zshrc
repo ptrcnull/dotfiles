@@ -114,13 +114,6 @@ if [ -d "$HOME/go" ]; then
   export PATH="$GOPATH/bin:$PATH"
 fi
 
-# TODO remove
-if iscmd git; then
-  if ! grep -q tree ~/.gitconfig 2>/dev/null; then
-    git config --global alias.tree "log --oneline --graph --decorate --all"
-  fi
-fi
-
 tpaste() {
 	curl -F 'tpaste=<-' https://tpaste.us/
 }
