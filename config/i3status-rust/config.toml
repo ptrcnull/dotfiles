@@ -106,13 +106,7 @@ block = "backlight"
 format = " $brightness "
 
 [[block]]
-block = "custom"
-interval = 1
-command = "</sys/class/power_supply/AC/online"
-format = " $text "
-hide_when_empty = true
-
-[[block]]
+if_command = "[ -d /sys/class/power_supply/CROS_USBPD_CHARGER0 ]"
 block = "custom"
 interval = 1
 command = "</sys/class/power_supply/CROS_USBPD_CHARGER0/online"
@@ -123,9 +117,10 @@ hide_when_empty = true
 if_command = "[ -d /sys/class/power_supply/BAT0 ]"
 block = "battery"
 interval = 10
-format = " $percentage "
-full_format = " $percentage "
-empty_format = " $percentage "
+format = " $percentage - "
+full_format = " $percentage - "
+empty_format = " $percentage - "
+charging_format = " $percentage + "
 missing_format = ""
 
 [[block]]
