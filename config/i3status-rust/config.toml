@@ -27,9 +27,18 @@ inactive_format = " br0(down) "
 missing_format = ""
 
 [[block]]
+# on toshiro eth0 is the docking station ethernet(?) that's useless to show
+if_command = "[ $(hostname) != toshiro ]"
 block = "net"
 device = "eth0"
 format = " eth0({$ip|no ip}) "
+inactive_format = " eth0(down) "
+missing_format = ""
+
+[[block]]
+block = "net"
+device = "eth1"
+format = " eth1({$ip|no ip}) "
 inactive_format = " eth0(down) "
 missing_format = ""
 
