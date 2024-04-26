@@ -11,6 +11,6 @@ pane-widths {
   members 0
 }
 colors {
-  unread "#00ffff"
+  unread "#56b4e9"
 }
 on-highlight-notify false
