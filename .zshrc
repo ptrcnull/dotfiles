@@ -47,6 +47,7 @@ iscmd() {
 
 if iscmd starship; then
 	source <(starship init zsh --print-full-init)
+	unset RPROMPT # we don't have a right prompt currently
 else
 	setopt promptsubst
 	export PS1='$(__ptrc_prompt)'
