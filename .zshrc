@@ -300,6 +300,8 @@ fi
 # enter directory without "cd "
 setopt autocd
 
+setopt interactive_comments
+
 # configure completion
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
