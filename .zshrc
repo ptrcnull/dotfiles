@@ -351,7 +351,7 @@ if [ "$SSH_TTY" ]; then
 		if pidof i3status-rs >/dev/null; then
 			tr '\0' '\n' < "/proc/$(pidof i3status-rs)/environ" \
 				| rg -e "DISPLAY" -e "SWAYSOCK" \
-				| while read line; do export $line; done
+				| while read -r line; do export $line; done
 		fi
 	fi
 
