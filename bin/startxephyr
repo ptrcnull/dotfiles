@@ -1,9 +1,10 @@
 #!/bin/sh
 
+export DISPLAY=":$(( $(ls -1 /tmp/.X11-unix/X* | cut -c17- | sort -n | tail -n1) + 1 ))"
+
 #Xephyr -br -ac -noreset -screen 1920x1080 :1 &
-Xwayland -geometry 1920x1080 -fullscreen :1 &
+Xwayland -geometry 1920x1080 -fullscreen "$DISPLAY" &
 sleep 2
-export DISPLAY=:1
 export _NO_ENVIRONMENT=1
 unset GDK_BACKEND
 unset WAYLAND_DISPLAY
