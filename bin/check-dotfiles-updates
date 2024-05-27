@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+
+local_master="$(cat "$HOME"/dotfiles/.git/refs/heads/master)"
+
+need_check=false
+if [ ! -f /tmp/dotfiles-update ]; then
+	need_check=true
+else
+	last_check="$(stat -c '%Y' /tmp/dotfiles-update)"
+	now="$(date '+%s')"
+	check_after="$(( last_check + 3600 ))"
+
+	if [ "$now" -gt "$check_after" ]; then
+		need_check=true
+	else
+		if [ "$(cat /tmp/dotfiles-update)" != "$local_master" ]; then
+			echo "dotfiles update available!"
+		fi
+	fi
+fi
+
+setopt local_options no_notify no_monitor
+(
+	if $need_check; then
+		remote_master="$(git ls-remote https://github.com/ptrcnull/dotfiles | grep HEAD | cut -f1)"
+		if [ "$local_master" != "$remote_master" ]; then
+			cd "$HOME"/dotfiles
+			git fetch --quiet
+		fi
+		echo "$remote_master" > /tmp/dotfiles-update
+	fi
+) &
