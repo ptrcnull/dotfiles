@@ -24,3 +24,6 @@ user_pref("devtools.debugger.remote-enabled", true);
 
 // persist network logs between page changes
 user_pref("devtools.netmonitor.persistlog", true);
+
+// always show the downloads button
+user_pref("browser.download.autohideButton", false);
