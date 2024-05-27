@@ -1,0 +1,5 @@
+type = process
+command = $HOME/.local/bin/missiled
+restart = true
+
+log-type = buffer
