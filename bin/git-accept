@@ -1,18 +1,48 @@
 #!/bin/sh
 
-case "$1" in
-""|-h|--help)
-	echo "usage: git accept <ours|theirs>"
-	exit 0
-	;;
-esac
-	
+usage() {
+	echo "usage: git accept <--ours|--theirs> [file...]"
+}
 
-if [ "$1" = "theirs" ]; then
-	repl='$1'
-else
-	repl='$2'
+repl=""
+
+for arg; do
+	case "$arg" in
+	-h|--help)
+		usage
+		exit 0
+		;;
+	--ours)
+		repl='$1'
+		shift
+		;;
+	--theirs)
+		repl='$2'
+		shift
+		;;
+	--*)
+		usage
+		exit 1
+		;;
+	*)
+		set -- "$@" "$arg"
+		shift
+		;;
+	esac
+done
+
+if [ "$repl" = "" ]; then
+	usage
+	exit 1
 fi
 
-git status --porcelain | rg UU | cut -c4- |\
-	xargs sd '<<<<<<< HEAD\n([\s\S]*?)(?:\n\|\|\|\|\|\|\| parent of[\s\S]*)?=======\n([\s\S]*)>>>>>>> .*\n' "$repl"
+(
+	if [ "$#" -eq 0 ]; then
+		git status --porcelain | rg UU | cut -c4-
+	else
+		for arg; do echo "$arg"; done
+	fi
+) | while read -r file; do
+	sd '<<<<<<< (HEAD|Updated upstream)\n([\s\S]*?)(?:\n\|\|\|\|\|\|\| (parent of|Stash base)[\s\S]*?)?=======\n([\s\S]*?)>>>>>>> .*' "$repl" "$file"
+	git add "$file"
+done
