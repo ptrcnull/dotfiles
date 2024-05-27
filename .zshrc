@@ -179,10 +179,17 @@ alias gchanged='git status --porcelain | cut -c4-'
 alias gfa='git fetch --all --tags --prune'
 
 gfork() {
+	local username="ptrcnull"
+
 	local origin="$(git remote get-url origin)"
+	case "$origin" in
+	*hackerspace.pl*) username="ptrc" ;;
+	*) ;;
+	esac
+
 	local repo_name="${${origin%/}##*/}"
 	local host="${${origin#https://}%%/*}"
-	git remote add fork "git@$host:ptrcnull/$repo_name"
+	git remote add fork "git@$host:$username/$repo_name"
 }
 
 gfmr() {
