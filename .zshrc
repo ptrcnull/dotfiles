@@ -362,4 +362,4 @@ if [ "$SSH_TTY" ]; then
 	fi
 fi
 
-check-dotfiles-updates
+#check-dotfiles-updates
