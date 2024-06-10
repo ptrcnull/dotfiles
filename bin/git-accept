@@ -43,6 +43,6 @@ fi
 		for arg; do echo "$arg"; done
 	fi
 ) | while read -r file; do
-	sd '<<<<<<< (HEAD|Updated upstream)\n([\s\S]*?)(?:\n\|\|\|\|\|\|\| (parent of|Stash base)[\s\S]*?)?=======\n([\s\S]*?)>>>>>>> .*' "$repl" "$file"
+	sd '<<<<<<< (?:HEAD|Updated upstream)\n([\s\S]*?)(?:\n\|\|\|\|\|\|\| (?:parent of|Stash base)[\s\S]*?)?=======\n([\s\S]*?)>>>>>>> .*' "$repl" "$file"
 	git add "$file"
 done
