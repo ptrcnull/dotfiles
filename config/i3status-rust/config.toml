@@ -88,7 +88,7 @@ cmd = "pavucontrol"
 [block.mappings]
 # toshiro
 "alsa_output.pci-0000_07_00.6.analog-stereo" = "speaker"
-"alsa_output.pci-0000_07_00.6.HiFi__hw_Generic_1__sink" = "built-in"
+"alsa_output.pci-0000_07_00.6.HiFi.*" = "built-in"
 "alsa_output.pci-0000_01_00.1.hdmi-stereo-.*" = "monitor"
 # katsumi
 "alsa_output.pci-0000_0a_00.4.analog-stereo" = "line out"
