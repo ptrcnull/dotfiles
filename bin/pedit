@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+import argparse
+import subprocess
+from pathlib import Path
+import os
+import difflib
+
+EDITOR = os.getenv('EDITOR', 'nano')
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog='pedit',
+        description='Launch $EDITOR and save output to a patch'
+    )
+    parser.add_argument('patch_file', help='The patch file holding your changes')
+    parser.add_argument('target_file', help='The file to be edited')
+    args = parser.parse_args()
+
+    patch_file = Path(args.patch_file)
+    target_file = Path(args.target_file)
+
+    original = target_file.read_text().splitlines(keepends=True)
+
+    with patch_file.open('a+') as file:
+        # this is the easiest way to both read the file and ensure it's writable later
+        file.seek(0)
+        relevant = subprocess.run(
+            ['filterdiff', '-p1', '-i', args.target_file],
+            stdin=file,
+            stdout=subprocess.PIPE,
+            check=True,
+        ).stdout
+        file.seek(0)
+        irrelevant = subprocess.run(
+            ['filterdiff', '-p1', '-x', args.target_file],
+            stdin=file,
+            stdout=subprocess.PIPE,
+            check=True,
+        ).stdout
+        if len(relevant) > 0:
+            subprocess.run(['patch', '-p1'], input=relevant, check=True)
+
+    subprocess.run([EDITOR, target_file.resolve()])
+
+    edited = target_file.read_text().splitlines(keepends=True)
+
+    diff = difflib.unified_diff(
+        original,
+        edited,
+        fromfile='a/' + args.target_file,
+        tofile='b/' + args.target_file,
+    )
+
+    with patch_file.open('w') as file:
+        file.write(irrelevant.decode('utf-8'))
+        file.writelines(diff)
+
+if __name__ == '__main__':
+    main()
