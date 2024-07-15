@@ -54,6 +54,9 @@ def main():
     with patch_file.open('w') as file:
         file.write(irrelevant.decode('utf-8'))
         file.writelines(diff)
+    
+    with target_file.open('w') as file:
+        file.writelines(original)
 
 if __name__ == '__main__':
     main()
