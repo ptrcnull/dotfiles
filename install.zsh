@@ -57,13 +57,6 @@ find bin -type f | while read file; do
 	install $file $(echo $file | sed "s|bin|$HOME/.local/bin|")
 done
 
-if [ -f "$HOME"/.zshenv ] && [ ! -L "$HOME"/.zshenv ]; then
-	mv "$HOME"/.zshenv "$HOME"/.zshenv.bak
-	echo "[!] moved ~/.zshenv to ~/.zshenv.bak"
-fi
-
-ln -svf "$HOME"/.config/environment "$HOME"/.zshenv
-
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
   echo "[*] installing SSH keys"
   mkdir -p "$HOME"/.ssh
