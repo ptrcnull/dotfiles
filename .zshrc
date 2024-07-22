@@ -177,6 +177,7 @@ alias grbc='git rebase --continue'
 alias gch='git checkout'
 alias grr='git review -R'
 alias gchanged='git status --porcelain | cut -c4-'
+alias gconflicted='git status --porcelain | grep UU | cut -c4-'
 alias gfa='git fetch --all --tags --prune'
 
 gfork() {
