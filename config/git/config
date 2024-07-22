@@ -24,3 +24,5 @@
 	conflictstyle = zdiff3
 [diff]
 	algorithm = histogram
+[rerere]
+	enabled = true
