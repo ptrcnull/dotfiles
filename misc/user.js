@@ -27,3 +27,6 @@ user_pref("devtools.netmonitor.persistlog", true);
 
 // always show the downloads button
 user_pref("browser.download.autohideButton", false);
+
+// telemetrussy
+user_pref("toolkit.telemetry.shutdownPingSender.enabled", false);
