@@ -1,6 +1,10 @@
 #!/bin/sh
 
-arch="$(apk --print-arch)"
+if [ "$CARCH" ]; then
+	arch="$CARCH"
+else
+	arch="$(apk --print-arch)"
+fi
 
 # get_alpine_index <spec>
 get_aports_index() {
@@ -26,3 +30,4 @@ case "$1" in
 	v3.*|edge) get_all_indexes "$1" ;;
 	*) echo "huh?"; exit 1 ;;
 esac
+
