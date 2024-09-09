@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+replaces = {
+	'--uefi': ['-bios', '/usr/share/OVMF/OVMF.fd'],
+	'--usernet': ['-net', 'nic,model=e1000', '-net', 'user'],
+	'--spicy': [
+		'-usbdevice', 'tablet',
+		'-vga', 'qxl',
+		'-device', 'virtio-serial-pci',
+		'-spice', 'unix=on,addr=/tmp/vm_spice.socket,disable-ticketing=on',
+		'-device', 'virtserialport,chardev=spicechannel0,name=com.redhat.spice.0',
+		'-chardev', 'spicevmc,id=spicechannel0,name=vdagent',
+	],
+}
+
+new_args = [
+	'qemu-system-x86_64',
+	'-cpu', 'host',
+	'-accel', 'kvm',
+]
+
+for arg in sys.argv[1:]:
+	if arg in replaces:
+		new_args.extend(replaces[arg])
+	else:
+		new_args.append(arg)
+
+
+os.execvp('qemu-system-x86_64', new_args)
