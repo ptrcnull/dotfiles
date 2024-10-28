@@ -179,6 +179,7 @@ alias grr='git review -R'
 alias gchanged='git status --porcelain | cut -c4-'
 alias gconflicted='git status --porcelain | grep UU | cut -c4-'
 alias gfa='git fetch --all --tags --prune'
+alias gf='git fetch --tags --prune'
 
 gfork() {
 	local username="ptrcnull"
