@@ -74,7 +74,7 @@ format = " $average "
 [[block]]
 if_command = "[ $(hostname) = katsumi ]"
 block = "temperature"
-chip = "coretemp-isa-0000"
+chip = "k10temp-pci-00c3"
 format = " $average "
 
 [[block]]
