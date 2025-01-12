@@ -1,0 +1,10 @@
+type = process
+command = /usr/bin/kakushi
+restart = true
+
+# leaks passwords in the logs lol
+log-type = buffer
+#log-type = file
+#logfile = $XDG_STATE_HOME/log/syncthing.log
+
+
