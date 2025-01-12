@@ -3,8 +3,10 @@ set $mod Mod4
 exec dinitctl setenv DISPLAY MOZ_DBUS_REMOTE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && dinitctl trigger sway.trigger
 exec dbus-update-activation-environment --systemd DISPLAY MOZ_DBUS_REMOTE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
-output "Lenovo Group Limited E24-28 VVA56970" mode 1920x1080@60.000Hz position 0,0
-output "Acer Technologies XF252Q X 0x0000FB57" mode 1920x1080@60.000Hz position 1920,0
+output "Lenovo Group Limited E24-28 VVA56970" mode 1920x1080@60.000Hz
+output "Lenovo Group Limited E24-28 VVA56970" position 0 0
+output "Acer Technologies XF252Q X 0x0000FB57" mode 1920x1080@60.000Hz
+output "Acer Technologies XF252Q X 0x0000FB57" position 1921 0
 
 #output "Hewlett Packard LA2405 CN412306V3" mode 1920x1200@59.950Hz position 0,0
 #output "that other shit monitor todo fill" mode 1920x1080@239.964Hz position 0,120
