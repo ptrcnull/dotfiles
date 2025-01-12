@@ -133,6 +133,12 @@ full_format = " $percentage "
 missing_format = ""
 
 [[block]]
+if_command = "command -v swaync-client"
+block = "notify"
+driver = "swaync"
+format = " [{$paused{-}|O}] "
+
+[[block]]
 block = "time"
 interval = 1
 format = " $timestamp.datetime(f:'%Y-%m-%d %H:%M:%S') "
