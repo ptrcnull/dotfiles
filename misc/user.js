@@ -30,3 +30,6 @@ user_pref("browser.download.autohideButton", false);
 
 // telemetrussy
 user_pref("toolkit.telemetry.shutdownPingSender.enabled", false);
+
+// don't autohide top bar on full screen
+user_pref("browser.fullscreen.autohide", false);
