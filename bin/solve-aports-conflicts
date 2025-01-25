@@ -1,0 +1,113 @@
+#!/usr/bin/python3
+
+import subprocess
+from pathlib import Path
+from enum import Enum
+import difflib
+
+def git(args, **kwargs):
+	return subprocess.run(["git"] + args, **kwargs)
+
+
+class State(Enum):
+	DEFAULT = 0
+	THEIRS = 1
+	CONTEXT = 2
+	OURS = 3
+
+
+def handle_file(file_path: Path):
+	with file_path.open("r") as file:
+		lines = file.readlines()
+
+	state = State.DEFAULT
+	rest = []
+	theirs = []
+	context = []
+	ours = []
+	flush = False
+	clean = True
+
+	for line in lines:
+		match (state, line[0:8]):
+			case (State.DEFAULT, '<<<<<<< '):
+				state = State.THEIRS
+			case (State.DEFAULT, _):
+				rest.append(line)
+
+			case (State.THEIRS, '||||||| '):
+				state = State.CONTEXT
+			case (State.THEIRS, _):
+				theirs.append(line)
+		
+			case (State.CONTEXT, '=======\n'):
+				state = State.OURS
+			case (State.CONTEXT, _):
+				context.append(line)
+
+			case (State.OURS, '>>>>>>> '):
+				state = State.DEFAULT
+				flush = True
+			case (State.OURS, _):
+				ours.append(line)
+
+
+		if flush:
+			flush = False
+			handled = False
+
+			our_diff = ''.join(difflib.ndiff(context, ours))
+			our_diff_lines = our_diff.splitlines()
+			different_lines = (len(our_diff_lines) - len(ours)) // 3
+
+			# rebased pkgrel bump
+			if different_lines == 1 and '- pkgrel' in our_diff:
+				for i in range(len(theirs)):
+					line = theirs[i]
+					if line.startswith('pkgrel='):
+						pkgrel = int(line[7:]) + 1
+						theirs[i] = f'pkgrel={pkgrel}\n'
+						handled = True
+						break
+
+			if handled:
+				rest.extend(theirs)
+			else:
+				clean = False
+				rest.extend([
+					'<<<<<<< HEAD\n',
+					*theirs,
+					'||||||| parent\n',
+					*context,
+					'=======\n',
+					*ours,
+					'>>>>>>> commit\n',
+				])
+
+			theirs = []
+			context = []
+			ours = []
+
+	with file_path.open("w") as file:
+		file.writelines(rest)
+
+	return clean
+
+def main():
+	git_root = Path(git(["rev-parse", "--show-toplevel"], check=True, stdout=subprocess.PIPE).stdout.decode().rstrip())
+	statuses = git(["status", "--porcelain"], check=True, stdout=subprocess.PIPE).stdout.decode().splitlines()
+
+	for status in statuses:
+		if not status.startswith('UU '):
+			continue
+		relative_path = ' '.join(status.split(' ')[1:])
+		file_path = git_root / relative_path
+		clean = handle_file(file_path)
+
+		if clean:
+			print(f'[+] successfully handled: {relative_path}')
+			git(["add", file_path], check=True)
+		else:
+			print(f'[!] could not fix: {relative_path}')
+
+main()
