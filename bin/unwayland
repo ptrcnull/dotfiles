@@ -1,0 +1,9 @@
+#!/bin/sh
+
+export _NO_ENVIRONMENT=1
+unset GDK_BACKEND
+unset WAYLAND_DISPLAY
+unset QT_QPA_PLATFORM
+unset XDG_SESSION_TYPE
+unset SDL_VIDEODRIVER
+exec "$@"
