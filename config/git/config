@@ -26,3 +26,5 @@
 	algorithm = histogram
 [rerere]
 	enabled = true
+[url "ssh://git@git.ddd.rip"]
+	insteadOf = "https://git.ddd.rip"
