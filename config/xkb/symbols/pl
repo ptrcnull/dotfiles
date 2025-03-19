@@ -613,3 +613,10 @@ xkb_symbols "german" {
     key <AD07>	{ [         u,          U,  udiaeresis,    Udiaeresis ]	};
     key <AC02>	{ [         s,          S,      ssharp,         U1E9E ]	};
 };
+
+partial alphanumeric_keys
+xkb_symbols "emojo" {
+	include "pl(basic)"
+
+    key <AD10>	{ [         p,          P,  U1F97A,    U1F97A ]	};
+};
