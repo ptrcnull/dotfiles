@@ -27,3 +27,20 @@
 .tabbrowser-tab {
   padding: 0 !important;
 }
+
+/* no gradient cutoff for tabs */
+.tab-label-container {
+  &[textoverflow] {
+    &[labeldirection=ltr]:not([pinned]),
+    &:not([labeldirection], [pinned]):-moz-locale-dir(ltr) {
+      direction: ltr;
+      mask-image: none !important;
+    }
+
+    &[labeldirection=rtl]:not([pinned]),
+    &:not([labeldirection], [pinned]):-moz-locale-dir(rtl) {
+      direction: rtl;
+      mask-image: none !important;
+    }
+  }
+}
