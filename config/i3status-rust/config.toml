@@ -39,7 +39,14 @@ missing_format = ""
 block = "net"
 device = "eth1"
 format = " eth1({$ip|no ip}) "
-inactive_format = " eth0(down) "
+inactive_format = " eth1(down) "
+missing_format = ""
+
+[[block]]
+block = "net"
+device = "eth2"
+format = " eth2({$ip|no ip}) "
+inactive_format = " eth2(down) "
 missing_format = ""
 
 [[block]]
@@ -47,6 +54,13 @@ block = "net"
 device = "usb0"
 format = " usb0({$ip|no ip}) "
 inactive_format = " usb0(down) "
+missing_format = ""
+
+[[block]]
+block = "net"
+device = "bnep0"
+format = " bnep0({$ip|no ip}) "
+inactive_format = " bnep0(down) "
 missing_format = ""
 
 [[block]]
