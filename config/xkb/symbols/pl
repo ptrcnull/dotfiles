@@ -609,14 +609,14 @@ xkb_symbols "german" {
 	include "pl(basic)"
 
 	key <AC01>	{ [         a,          A,  adiaeresis,    Adiaeresis ]	};
-    key <AD09>	{ [         o,          O,  odiaeresis,    Odiaeresis ]	};
-    key <AD07>	{ [         u,          U,  udiaeresis,    Udiaeresis ]	};
-    key <AC02>	{ [         s,          S,      ssharp,         U1E9E ]	};
+	key <AD09>	{ [         o,          O,  odiaeresis,    Odiaeresis ]	};
+	key <AD07>	{ [         u,          U,  udiaeresis,    Udiaeresis ]	};
+	key <AC02>	{ [         s,          S,      ssharp,         U1E9E ]	};
 };
 
 partial alphanumeric_keys
 xkb_symbols "emojo" {
 	include "pl(basic)"
 
-    key <AD10>	{ [         p,          P,  U1F97A,    U1F97A ]	};
+    key <AD10>	{ [         p,          P,  U1F97A,    U1F614 ]	};
 };
