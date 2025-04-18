@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/niri
+restart = true
+working-dir = /home/patrycja
+
+log-type = file
+logfile = $XDG_STATE_HOME/log/niri.log
