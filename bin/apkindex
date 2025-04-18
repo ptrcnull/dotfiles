@@ -6,13 +6,16 @@ else
 	arch="$(apk --print-arch)"
 fi
 
+#http_mirror="https://cdn.alpinelinux.org"
+http_mirror="https://dl-master.alpinelinux.org/alpine"
+
 # get_alpine_index <spec>
 get_aports_index() {
 	file="/var/lib/mirror/$1/$arch/APKINDEX.tar.gz"
 	if [ -f "$file" ]; then
 		exec tar xOf "$file" APKINDEX
 	else
-		exec curl -s "https://dl-cdn.alpinelinux.org/alpine/$1/$arch/APKINDEX.tar.gz" | tar xzO APKINDEX
+		exec curl -s "$http_mirror/$1/$arch/APKINDEX.tar.gz" | tar xzO APKINDEX
 	fi
 }
 
