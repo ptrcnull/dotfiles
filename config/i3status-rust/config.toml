@@ -80,6 +80,11 @@ block = "memory"
 format = " m$mem_used_percents.eng(width:2) "
 
 [[block]]
+block = "disk_space"
+info_type = "used"
+format = " d$percentage.eng(width:2) "
+
+[[block]]
 if_command = "[ $(hostname) = toshiro ]"
 block = "temperature"
 chip = "k10temp-pci-00c3"
