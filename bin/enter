@@ -39,6 +39,8 @@ def runner(read_fd, write_fd):
 		with open(f'/proc/self/fd/{write_fd}', 'w') as file:
 			file.write(str(retcode) + '\n')
 
+main_process_pid = None
+
 def main():
 	args_r, args_w = os.pipe()
 	wait_r, wait_w = os.pipe()
@@ -75,10 +77,19 @@ exit $exitcode
 		]
 		env = os.environ.copy()
 		env['PATH'] = '/tmp/xbin:' + env['PATH']
-		res = subprocess.run(args, pass_fds=[args_w, wait_r], env=env)
+		with subprocess.Popen(args, pass_fds=[args_w, wait_r], env=env) as process:
+			main_process_pid = process.pid
+			process.wait()
+			retcode = process.poll()
 
 	q.put(1)
-	sys.exit(res.returncode)
+	sys.exit(retcode)
+
+def pass_to_main(sig, frame):
+	if main_process_pid:
+		os.kill(main_process_pid, sig)
+
+signal.signal(signal.SIGINT, pass_to_main)
 
 if __name__ == '__main__':
 	main()
