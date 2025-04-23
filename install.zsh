@@ -2,8 +2,6 @@
 
 if [ "$ZSH_EVAL_CONTEXT" = "toplevel" ]; then
 	echo "[!] this script is meant to be sourced"
-	echo "source install.zsh" > /dev/stdin
-	exit 1
 fi
 
 plugins_dir="$HOME/.local/share/zsh-plugins"
