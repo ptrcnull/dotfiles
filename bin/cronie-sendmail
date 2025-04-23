@@ -1,0 +1,13 @@
+#!/bin/sh
+# sendmail-"compatible" stub for cronie to use
+# use with '-m /path/to/cronie-sendmail'
+
+if ! [ "$MAILFROM" ]; then
+	MAILFROM="$USER@$(hostname)"
+fi
+
+exec curl -v \
+	--ssl-reqd smtp://kyouko.torastian.com/ \
+	--mail-from "$MAILFROM" \
+	--mail-rcpt "$MAILTO" \
+	--upload-file -
