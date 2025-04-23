@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -eu
+
+root="$1"
+shift
+
+#	--perms 1777 \
+#	--tmpfs /tmp \
+
+bwrap --bind "$root" / \
+	--tmpfs /run \
+	--tmpfs /dev/shm \
+	--bind /tmp /tmp \
+	--proc /proc \
+	--dev /dev \
+	--ro-bind /sys /sys \
+	--dev-bind /dev/dri /dev/dri \
+	--ro-bind /etc/resolv.conf /etc/resolv.conf \
+	--bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" \
+	--setenv TERM xterm-256color \
+	--setenv LANG en_US.UTF-8 \
+	"$@"
