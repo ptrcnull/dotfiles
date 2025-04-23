@@ -38,22 +38,34 @@ if [ -d "$HOME"/.zsh-custom ]; then
 	rmdir "$HOME"/.zsh-custom
 fi
 
-install() {
-  command install -dv "$(dirname "$2")" || true
-  # screw you coreutils install and your ugly messages
-  command install -v $@ | grep -v removed
-}
+if command -v rsync >/dev/null; then
+	echo "[*] installing config files"
+	rsync --archive --update --hard-links --itemize-changes --delay-updates \
+		./config/ ~/.config/
 
-echo "[*] installing config files"
-install -m644 .zshrc "$HOME"/.zshrc
-find config -type f | while read file; do
-	install $file $(echo $file | sed "s|config|$HOME/.config|")
-done
+	echo "[*] installing executables"
+	rsync --archive --update --hard-links --itemize-changes --delay-updates \
+		./bin/ ~/.local/bin/
+else
+	install() {
+		command install -dv "$(dirname "$2")" || true
+		# screw you coreutils install and your ugly messages
+		command install -v $@ | grep -v removed
+	}
 
-echo "[*] installing executables"
-find bin -type f | while read file; do
-	install $file $(echo $file | sed "s|bin|$HOME/.local/bin|")
-done
+	echo "[*] installing config files"
+	install -m644 .zshrc "$HOME"/.zshrc
+	find config -type f | while read file; do
+		install $file $(echo $file | sed "s|config|$HOME/.config|")
+	done
+
+	echo "[*] installing executables"
+	find bin -type f | while read file; do
+		install $file $(echo $file | sed "s|bin|$HOME/.local/bin|")
+	done
+
+	unfunction install
+fi
 
 if ! { [ -f "$HOME"/.ssh/authorized_keys ] && grep -q patrycja "$HOME"/.ssh/authorized_keys }; then
 	echo "[*] installing SSH keys"
@@ -108,7 +120,5 @@ if [ -d "$HOME"/.zsh ]; then
 	echo "[*] cleaning up .zsh"
 	rm -rf "$HOME"/.zsh
 fi
-
-unfunction install
 
 exec zsh
