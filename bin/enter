@@ -1,0 +1,84 @@
+#!/usr/bin/python3
+
+import subprocess
+import os
+import threading
+import sys
+from multiprocessing import Queue
+from select import select
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import shlex
+import signal
+
+q = Queue()
+
+def become_tty_fg():
+    os.setpgrp()
+    hdlr = signal.signal(signal.SIGTTOU, signal.SIG_IGN)
+    tty = os.open('/dev/tty', os.O_RDWR)
+    os.tcsetpgrp(tty, os.getpgrp())
+    signal.signal(signal.SIGTTOU, hdlr)
+
+def runner(read_fd, write_fd):
+	# print('runner reading from', read_fd, 'and writing to', write_fd)
+	reader = os.fdopen(read_fd)
+
+	while True:
+		ready, _, _ = select([ reader, q._reader ], [], [])
+		if q._reader in ready:
+			break
+		data = reader.readline()
+		cmd = shlex.split(data)
+		print('running elevated:', cmd)
+		args = ['doas', 'enter-bwrap', sys.argv[1], *cmd]
+
+		ret = subprocess.run(args, preexec_fn=become_tty_fg)
+		retcode = ret.returncode
+
+		with open(f'/proc/self/fd/{write_fd}', 'w') as file:
+			file.write(str(retcode) + '\n')
+
+def main():
+	args_r, args_w = os.pipe()
+	wait_r, wait_w = os.pipe()
+
+	script = f'''
+#!/bin/sh
+#set -x
+echo "$@" > /proc/self/fd/{args_w}
+exitcode=$(head -n 1 /proc/self/fd/{wait_r})
+exit $exitcode
+	'''.lstrip()
+	os.set_inheritable(args_w, True)
+	os.set_inheritable(wait_r, True)
+
+	t = threading.Thread(target=runner, args=(args_r, wait_w,))
+	t.start()
+
+	inner_root = Path(sys.argv[1])
+	if not inner_root.is_dir():
+		print(f'enter: {inner_root}: not a directory')
+		sys.exit(1)
+
+	with TemporaryDirectory() as tempdir:
+		doas = Path(tempdir) / 'doas'
+		with doas.open("w") as file:
+			file.write(script)
+		doas.chmod(0o555)
+
+		args = [
+			'enter-bwrap',
+			sys.argv[1],
+			'--bind', tempdir, '/tmp/xbin',
+			*sys.argv[2:],
+		]
+		env = os.environ.copy()
+		env['PATH'] = '/tmp/xbin:' + env['PATH']
+		res = subprocess.run(args, pass_fds=[args_w, wait_r], env=env)
+
+	q.put(1)
+	sys.exit(res.returncode)
+
+if __name__ == '__main__':
+	main()
