@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+adb pull "$(adb shell ls -d "/data/app/*/$1*")"
