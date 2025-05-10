@@ -95,3 +95,5 @@ hide_edge_borders both
 
 for_window [title="Firefox — Sharing Indicator"] floating enable
 for_window [shell="xwayland"] title_format "[XWayland] %title"
+
+seat seat0 xcursor_theme simp1e-cursors-adw-dark 24
