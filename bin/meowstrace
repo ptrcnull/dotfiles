@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec strace -f -v -s 2137 -o meow "$@"
