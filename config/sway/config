@@ -62,6 +62,7 @@ bindsym --locked $mod+Shift+Ctrl+Equal output * dpms on
 
 input * {
 	xkb_layout "pl"
+	xkb_variant "emojo"
 }
 
 input type:keyboard {
