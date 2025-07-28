@@ -1,0 +1,14 @@
+#!/usr/bin/node
+require('ptrc')
+
+const res = stdin()
+	.replace(/\r?\n /g, "")
+	.lines()
+	.map(x => x.match(/([A-Z]+)(;[A-Z0-9]+=(?:[A-Za-z/]+|".*?"))*:(.*)/))
+	.filter(x=>x)
+	.map(x =>
+		x[1] === "BEGIN" ? `<${x[3].toLowerCase()}>` :
+		x[1] === "END" ? `</${x[3].toLowerCase()}>` :
+		`<${x[1].toLowerCase()}${x[2] ? x[2].replace(/;/g, " ").replace(/([A-Z])=([^"].*?)( |$)/, `$1="$2"$3`) : ""}>${x[3]}</${x[1].toLowerCase()}>`
+	).lines()
+console.log(res)
