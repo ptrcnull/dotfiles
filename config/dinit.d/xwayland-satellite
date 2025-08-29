@@ -1,0 +1,7 @@
+type = process
+command = /usr/bin/xwayland-satellite
+restart = true
+depends-on = sway.trigger
+
+log-type = file
+logfile = $XDG_STATE_HOME/log/xwayland-satellite.log
