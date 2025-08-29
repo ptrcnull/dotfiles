@@ -120,6 +120,7 @@ cmd = "pavucontrol"
 "alsa_output.usb-Plantronics.*" = "headset"
 "alsa_output.usb-Apple__Inc.*" = "dongle"
 "alsa_output.usb-DisplayLink_Humanscale.*" = "dock"
+"alsa_output.usb-RODE_Microphones.*" = "interface"
 
 [[block]]
 if_command = "[ $(hostname) = toshiro ]"
