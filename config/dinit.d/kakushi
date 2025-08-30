@@ -2,7 +2,7 @@ type = process
 command = /usr/bin/kakushi
 restart = true
 depends-on = sway.trigger
-depends-on = himitsu
+depends-on = himitsud
 
 # leaks passwords in the logs lol
 log-type = buffer
