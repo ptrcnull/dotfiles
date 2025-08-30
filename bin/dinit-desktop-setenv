@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# small script meant to be executed by the compositor (niri, sway, etc.) to set the necessary envs
+# prevents race condition in cases where the commands are ran at the same time
+# and moves the list of envs to export from individual configs to here
+
+set -eu
+
+dinitctl setenv DISPLAY MOZ_DBUS_REMOTE WAYLAND_DISPLAY XDG_CURRENT_DESKTOP NIRI_SOCKET
+dinitctl trigger sway.trigger
