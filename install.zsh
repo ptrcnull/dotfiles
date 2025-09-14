@@ -41,6 +41,8 @@ fi
 if command -v rsync >/dev/null; then
 	echo "[*] installing config files"
 	rsync --archive --update --hard-links --itemize-changes --delay-updates \
+		.zshrc ~/.zshrc
+	rsync --archive --update --hard-links --itemize-changes --delay-updates \
 		./config/ ~/.config/
 
 	echo "[*] installing executables"
