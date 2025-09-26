@@ -13,6 +13,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/var"
 
 # dbus socket
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/1000}
 export DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}
 
 # rearrange home trash
@@ -41,8 +42,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export MICRO_TRUECOLOR=1 # not a gui app but still broken
 export GDK_BACKEND=wayland
 export SDL_VIDEODRIVER=wayland # for extra spicyness
-export XDG_CURRENT_DESKTOP=sway
-export XDG_SESSION_TYPE=wayland
 export MOZ_DBUS_REMOTE=1
 
 # silence, software
