@@ -21,6 +21,7 @@ bindsym XF86NotificationCenter exec swaync-client -t
 
 # Kill focused window
 bindsym Mod1+F4 kill
+bindsym $mod+q kill
 bindsym $mod+u exec ~/.local/bin/sway-toggle-stop
 
 # Screenshot
