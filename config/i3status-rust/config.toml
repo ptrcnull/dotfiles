@@ -130,14 +130,6 @@ block = "backlight"
 format = " $brightness "
 
 [[block]]
-if_command = "[ -d /sys/class/power_supply/CROS_USBPD_CHARGER0 ]"
-block = "custom"
-interval = 1
-command = "</sys/class/power_supply/CROS_USBPD_CHARGER0/online"
-format = " $text "
-hide_when_empty = true
-
-[[block]]
 if_command = "[ -d /sys/class/power_supply/BAT0 ]"
 block = "battery"
 interval = 1
@@ -155,6 +147,14 @@ device = "sbs-6-000b"
 format = " $percentage "
 full_format = " $percentage "
 missing_format = ""
+
+[[block]]
+if_command = "[ -d /sys/class/power_supply/CROS_USBPD_CHARGER0 ]"
+block = "custom"
+interval = 1
+command = "</sys/class/power_supply/CROS_USBPD_CHARGER0/online"
+format = " ch($text) "
+hide_when_empty = true
 
 [[block]]
 if_command = "command -v swaync-client"
