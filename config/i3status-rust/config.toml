@@ -116,6 +116,8 @@ cmd = "pavucontrol"
 "alsa_output.pci-0000_09_00.1.hdmi-stereo" = "hdmi"
 # koyuki
 "alsa_output._sys_devices_platform_sound_sound_card0.*" = "built-in"
+# kurumi
+"alsa_output.platform-sound.HiFi__Speaker__sink" = "built-in"
 # other
 "alsa_output.usb-Plantronics.*" = "headset"
 "alsa_output.usb-Apple__Inc.*" = "dongle"
