@@ -125,7 +125,7 @@ cmd = "pavucontrol"
 "alsa_output.usb-RODE_Microphones.*" = "interface"
 
 [[block]]
-if_command = "[ $(hostname) = toshiro ]"
+if_command = "[ $(hostname) = toshiro -o $(hostname) = kurumi ]"
 block = "backlight"
 format = " $brightness "
 
