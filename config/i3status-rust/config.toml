@@ -103,7 +103,7 @@ step_width = 5
 show_volume_when_muted = true
 [[block.click]]
 button = "left"
-cmd = "pavucontrol"
+cmd = "/home/patrycja/.local/bin/pavuctl"
 [block.mappings]
 # toshiro
 "alsa_output.pci-0000_07_00.6.analog-stereo" = "speaker"
