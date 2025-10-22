@@ -31,9 +31,6 @@ user_pref("browser.download.autohideButton", false);
 // telemetrussy
 user_pref("toolkit.telemetry.shutdownPingSender.enabled", false);
 
-// don't autohide top bar on full screen
-user_pref("browser.fullscreen.autohide", false);
-
 // fuck off with the AI
 user_pref("browser.ml.chat.enabled", false);
 user_pref("browser.ml.chat.menu", false);
