@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -eu
+
+name="$(exiftool "$1" | grep 'PostScript Font Name' | cut -d: -f2 | xargs)"
+set -x
+mv "$1" "$name.ttf"
