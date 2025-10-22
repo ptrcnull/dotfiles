@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# who needs turnstile
+
+mkdir -p "/run/user/1000"
+chown patrycja:patrycja /run/user/1000
+su -c 'export XDG_RUNTIME_DIR=/run/user/1000 && cd $HOME && source .config/environment && openrc -U default' patrycja
