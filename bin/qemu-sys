@@ -18,6 +18,20 @@ replaces = {
 		'-usbdevice', 'tablet',
 		'-vga', 'qxl',
 		'-vnc', ':0',
+	],
+	'--gpu': [
+		'-device', 'vfio-pci,host=0a:00.0,x-vga=on,multifunction=on',
+		'-device', 'vfio-pci,host=0a:00.1,multifunction=on',
+	],
+	'--evdev': [
+		'-object', 'input-linux,id=mouse1,evdev=/dev/input/event28',
+		'-object', 'input-linux,id=kbd1,evdev=/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd,grab_all=on,repeat=on',
+	],
+	"--drive=windows": [
+		'-drive', 'file=/dev/sda,format=raw',
+	],
+	'--pulse': [
+		'-audio', 'driver=pa,model=hda,server=/run/user/1000/pulse/native',
 	]
 }
 
