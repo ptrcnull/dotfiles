@@ -3,6 +3,7 @@ command = /usr/bin/niri
 restart = true
 working-dir = /home/patrycja
 depends-on = dbus-daemon
+depends-on = wireplumber
 
 log-type = file
 logfile = $XDG_STATE_HOME/log/niri.log
