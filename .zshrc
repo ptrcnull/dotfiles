@@ -102,6 +102,7 @@ alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
 alias -g ......='../../../../..'
+alias -g .......='../../../../../..'
 
 cpf() {
 	wl-copy --type text/uri-list "file://$(realpath $1)"
