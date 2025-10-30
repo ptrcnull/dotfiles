@@ -53,6 +53,7 @@ else
 	export PS1='$(__ptrc_prompt)'
 fi
 
+# default arguments
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip --color=auto'
@@ -60,13 +61,13 @@ alias diff='diff --color=auto'
 alias ncdu='ncdu --color off'
 alias lldb='TERM=xterm-256color lldb'
 alias gdb='gdb -q'
+alias cal='cal -m'
 
 alias lls='ls'
 alias sl='ls'
 alias ll='ls -lah'
 alias gitresethard='git reset --hard HEAD && git clean -df'
 alias dps='docker ps -a --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"'
-alias cal='cal -m'
 alias cdtemp='cd $(mktemp -d)'
 alias wrl='while { read line }'
 alias falsedo='false; while { [ $? != 0 ] }'
