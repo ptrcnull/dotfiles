@@ -1,0 +1,4 @@
+command = "i3status-rs"
+
+font = "Noto Sans Mono 11"
+height = 32
