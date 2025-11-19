@@ -82,6 +82,8 @@ format = " m$mem_used_percents.eng(width:2) "
 [[block]]
 block = "disk_space"
 info_type = "used"
+warning = 90.0
+alert = 95.0
 format = " d$percentage.eng(width:2) "
 
 [[block]]
