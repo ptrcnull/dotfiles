@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cut -d/ -f4 < "$(git rev-parse --show-toplevel)"/.git/refs/remotes/origin/HEAD
