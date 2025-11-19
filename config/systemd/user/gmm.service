@@ -1,0 +1,10 @@
+[Unit]
+Description=GitLab merge queue daemon
+
+[Service]
+Type=simple
+ExecStart=/home/patrycja/.local/bin/gmm --daemon
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
