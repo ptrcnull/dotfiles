@@ -1,0 +1,15 @@
+[Unit]
+Description=Himitsu secrets daemon
+PartOf=graphical-session.target
+After=graphical-session.target
+# ConditionEnvironment requires systemd v247 to work correctly
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/himitsud
+Restart=on-failure
+Slice=session.slice
+
+[Install]
+WantedBy=graphical-session.target
