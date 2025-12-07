@@ -1,0 +1,73 @@
+#!/usr/bin/python3
+
+from pathlib import Path
+from subprocess import run, Popen, PIPE
+import os
+import sys
+from shlex import shlex
+
+def env_with_prompt(prompt: str):
+	env = os.environ.copy()
+	env['CUSTOM_PROMPT_TAG'] = prompt
+	return env
+
+def main():
+	if len(sys.argv) < 2:
+		print('usage: cdenc <path>')
+		exit(1)
+
+	enc_dir = Path(sys.argv[1])
+	if not enc_dir.is_dir():
+		print(f'cdenc: {enc_dir.absolute()}: not a directory')
+		exit(1)
+
+	uid = os.getuid()
+	gid = os.getgid()
+
+	# shamelessly copying unshare(1) here
+	os.unshare(os.CLONE_NEWUSER|os.CLONE_NEWNS)
+	with open('/proc/self/uid_map', 'w') as file:
+		file.write(f'0 {uid} 1')
+	with open('/proc/self/setgroups', 'w') as file:
+		file.write('deny')
+	with open('/proc/self/gid_map', 'w') as file:
+		file.write(f'0 {gid} 1')
+
+	run(['mount', '-t', 'tmpfs', 'tmpfs', '/tmp'], check=True)
+	tmp_mount = Path('/tmp/encfs')
+	tmp_mount.mkdir(parents=True)
+
+	passphrase = run(['hiq', '-dFpassphrase', 'app=safe'], check=True, stdout=PIPE).stdout.strip() + b'\n'
+	print('Running encfs...')
+	run(['encfs', '--stdinpass', enc_dir.absolute(), tmp_mount.absolute()], check=True, input=passphrase)
+	print('Mounted, proceeding with shell')
+#	run(['mount', '-t', 'tmpfs', 'tmpfs', tmp_mount.absolute()], check=True)
+
+	previous_mnt = os.open(f'/proc/self/ns/mnt', os.O_RDONLY)
+	os.unshare(os.CLONE_NEWNS)
+	run(['mount', '--move', tmp_mount.absolute(), enc_dir.absolute()], check=True)
+	run(['umount', '/tmp'], check=True)
+
+# TODO: figure out how the fuck we can go back to previous userns from a new one
+# i really don't want to clone the process .~.
+#	previous_usr = os.open('/proc/self/ns/user', os.O_RDONLY)
+#	os.unshare(os.CLONE_NEWUSER)
+#	with open('/proc/self/uid_map', 'w') as file:
+#		file.write(f'{uid} 0 1')
+#	with open('/proc/self/setgroups', 'w') as file:
+#		file.write('deny')
+#	with open('/proc/self/gid_map', 'w') as file:
+#		file.write(f'{gid} 0 1')
+
+	run(['zsh'], cwd=enc_dir, env=env_with_prompt('cdenc'))
+
+#	os.setns(previous_usr, os.CLONE_NEWUSER)
+#	os.close(previous_usr)
+
+	os.setns(previous_mnt, os.CLONE_NEWNS)
+	os.close(previous_mnt)
+
+	run(['umount', tmp_mount.absolute()], check=True)
+
+if __name__ == '__main__':
+	main()
