@@ -37,9 +37,8 @@ def main():
 	tmp_mount = Path('/tmp/encfs')
 	tmp_mount.mkdir(parents=True)
 
-	passphrase = run(['hiq', '-dFpassphrase', 'app=safe'], check=True, stdout=PIPE).stdout.strip() + b'\n'
 	print('Running encfs...')
-	run(['encfs', '--stdinpass', enc_dir.absolute(), tmp_mount.absolute()], check=True, input=passphrase)
+	run(['encfs', enc_dir.absolute(), tmp_mount.absolute()], check=True)
 	print('Mounted, proceeding with shell')
 #	run(['mount', '-t', 'tmpfs', 'tmpfs', tmp_mount.absolute()], check=True)
 
