@@ -31,6 +31,7 @@ __ptrc_prompt() {
 	local c_reset=$'%{\x1b[0m%}'
 	local c_red=$'%{\x1b[31m%}'
 	local c_cyan=$'%{\x1b[36m%}'
+	local c_bold=$'%{\x1b[1m%}'
 
 	if [ "$SSH_TTY" ]; then
 		local hostprefix="${c_red}${USER}${c_reset}@${c_cyan}${HOST} "
@@ -38,7 +39,13 @@ __ptrc_prompt() {
 		local hostprefix=""
 	fi
 
-	echo "${hostprefix}${c_blue}%~ ${c_green}>$c_reset "
+	if [ "$CUSTOM_PROMPT_TAG" ]; then
+		local tagprefix="${c_green}${c_bold}${CUSTOM_PROMPT_TAG}${c_reset} "
+	else
+		local tagprefix=""
+	fi
+
+	echo "${tagprefix}${hostprefix}${c_blue}%~ ${c_green}>$c_reset "
 }
 
 iscmd() {
