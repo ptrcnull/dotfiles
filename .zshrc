@@ -367,7 +367,7 @@ inherit-env() {
 	export "$line"
 }
 
-if [ "$SSH_TTY" ]; then
+if [ "$SSH_TTY" ] && ! [ "$_NO_ENVIRONMENT" ]; then
 	if [ -z "$XDG_RUNTIME_DIR" ]; then
 		if [ -d "/run/user/$(id -u)" ]; then
 			export XDG_RUNTIME_DIR="/run/user/$(id -u)"
