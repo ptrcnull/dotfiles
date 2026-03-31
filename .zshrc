@@ -349,6 +349,24 @@ add-zsh-hook -Uz chpwd osc7
 # disable xoff/xon
 stty -ixoff -ixon
 
+inherit-env() {
+	local envfile pid line
+	envfile="/proc/$1/environ"
+
+	if ! [ -f "$envfile" ]; then
+	    pid="$(pidof -s $1)"
+	    if ! [ -n "$pid" ]; then
+	        echo "$0: process not found: $1"
+	        return 1
+	    fi
+	    envfile="/proc/$pid/environ"
+	fi
+
+	line="$(tr '\0' '\n' < "$envfile" | grep -E "^$2=")"
+
+	export "$line"
+}
+
 if [ "$SSH_TTY" ]; then
 	if [ -z "$XDG_RUNTIME_DIR" ]; then
 		if [ -d "/run/user/$(id -u)" ]; then
