@@ -379,10 +379,14 @@ if [ "$SSH_TTY" ] && ! [ "$_NO_ENVIRONMENT" ]; then
 	fi
 
 	if [ -z "$WAYLAND_DISPLAY" ]; then
-		if pidof i3status-rs >/dev/null; then
-			tr '\0' '\n' < "/proc/$(pidof i3status-rs)/environ" \
-				| rg -e "DISPLAY" -e "SWAYSOCK" \
-				| while read -r line; do export $line; done
+		if pidof i3bar-river >/dev/null; then
+			inherit-env i3bar-river WAYLAND_DISPLAY
+		fi
+	fi
+
+	if [ -z "$NIRI_SOCKET" ]; then
+		if pidof i3bar-river >/dev/null; then
+			inherit-env i3bar-river NIRI_SOCKET
 		fi
 	fi
 
