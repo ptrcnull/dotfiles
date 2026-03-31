@@ -16,7 +16,7 @@ bwrap --bind "$root" / \
 	--dev /dev \
 	--ro-bind /sys /sys \
 	--dev-bind /dev/dri /dev/dri \
-	--ro-bind /etc/resolv.conf /etc/resolv.conf \
+	--ro-bind "$(realpath /etc/resolv.conf)" /etc/resolv.conf \
 	--bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" \
 	--setenv TERM xterm-256color \
 	--setenv LANG en_US.UTF-8 \
