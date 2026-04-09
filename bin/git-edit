@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+file="$(mktemp -t git-edit.XXXXXXXXXX)"
+trap 'rm -f "$file"' EXIT INT TERM HUP
+
+if ! [ "$EDITOR" ]; then
+	EDITOR="nano"
+fi
+
+git cat-file commit "$1" > "$file"
+$EDITOR "$file"
+git hash-object --stdin -t commit -w < "$file"
