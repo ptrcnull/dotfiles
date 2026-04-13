@@ -1,0 +1,53 @@
+#!/usr/bin/node
+require('ptrc')
+const fs = require('node:fs')
+const util = require('node:util')
+
+let { data } = JSON.parse(fs.readFileSync(process.argv[2], 'utf-8'))
+let debug = false
+
+function buildFilter(filter) {
+	const [key, value] = filter.split('=')
+
+	switch (key) {
+	case 'station':
+		return trip => trip
+	case 'debug':
+		debug = true
+		return trip => true
+	case 'category':
+		return trip => trip.trip.category === value
+	case 'line':
+		return trip => trip.trip.lineName === value
+	case 'from':
+		return trip => trip.status.train.origin.name === value
+	case 'to':
+		return trip => trip.status.train.destination.name === value
+	case 'limit':
+		const limit = Number(value)
+		return (trip, i) => i < limit
+	}
+
+	throw new Error(`unknown filter: ${key}`)
+}
+
+for (let param of process.argv.slice(3)) {
+	data = data.filter(buildFilter(param))
+}
+
+if (debug) {
+	console.log(util.inspect(data, null, Infinity))
+	process.exit(0)
+}
+
+const undate = x => x.replace('T', ' ').split('+')[0]
+
+const table = data.map(x => ({
+	category: x.trip.category,
+	line: x.trip.lineName,
+	from: x.status.train.origin.name,
+	to: x.status.train.destination.name,
+	departure: undate(x.status.train.origin.departure),
+	arrival: undate(x.status.train.destination.arrival),
+}))
+console.log(table.table())
