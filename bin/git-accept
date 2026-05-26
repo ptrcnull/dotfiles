@@ -12,6 +12,10 @@ for arg; do
 		usage
 		exit 0
 		;;
+	--debug)
+		set -x
+		shift
+		;;
 	--ours)
 		repl='$1'
 		shift
