@@ -3,7 +3,14 @@
 import os
 import sys
 
+presets = {
+	'small': ['-smp', '1', '-m', '2G'],
+	'medium': ['-smp', '4', '-m', '8G'],
+	'large': ['-smp', '8', '-m', '16G'],
+}
+
 replaces = {
+	'--preset': lambda args: presets[args],
 	'--uefi': ['-bios', '/usr/share/OVMF/OVMF.fd'],
 	'--usernet': ['-net', 'nic,model=e1000', '-net', 'user'],
 	'--spicy': [
