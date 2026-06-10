@@ -20,6 +20,10 @@ replaces = {
 		'-net', 'nic,model=e1000',
 		'-net', 'user,' + args,
 	],
+	'--pastanet': lambda args: [
+		'-net', 'nic,model=e1000',
+		'-net' 'passt,' + args,
+	],
 	'--spicy': lambda args: [
 		'-usbdevice', 'tablet',
 		'-vga', 'qxl',
