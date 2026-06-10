@@ -42,10 +42,14 @@ new_args = [
 ]
 
 for arg in sys.argv[1:]:
-	if arg in replaces:
-		new_args.extend(replaces[arg])
+	arg0, arg1 = arg.split('=', maxsplit=1) if '=' in arg else (arg, '')
+	if arg0 in replaces:
+		sub = replaces[arg0]
+		if type(sub) is list:
+			new_args.extend(sub)
+		else:
+			new_args.extend(sub(arg1))
 	else:
 		new_args.append(arg)
-
 
 os.execvp('qemu-system-x86_64', new_args)
