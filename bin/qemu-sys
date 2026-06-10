@@ -3,6 +3,10 @@
 import os
 import sys
 
+drives = {
+	'windows': 'file=/dev/sda,format=raw',
+}
+
 presets = {
 	'small': ['-smp', '1', '-m', '2G'],
 	'medium': ['-smp', '4', '-m', '8G'],
@@ -12,19 +16,22 @@ presets = {
 replaces = {
 	'--preset': lambda args: presets[args],
 	'--uefi': ['-bios', '/usr/share/OVMF/OVMF.fd'],
-	'--usernet': ['-net', 'nic,model=e1000', '-net', 'user'],
-	'--spicy': [
+	'--usernet': lambda args: [
+		'-net', 'nic,model=e1000',
+		'-net', 'user,' + args,
+	],
+	'--spicy': lambda args: [
 		'-usbdevice', 'tablet',
 		'-vga', 'qxl',
 		'-device', 'virtio-serial-pci',
-		'-spice', 'unix=on,addr=/tmp/vm_spice.socket,disable-ticketing=on',
+		'-spice', f'unix=on,addr={args},disable-ticketing=on',
 		'-device', 'virtserialport,chardev=spicechannel0,name=com.redhat.spice.0',
 		'-chardev', 'spicevmc,id=spicechannel0,name=vdagent',
 	],
-	'--vnc': [
+	'--vnc': lambda args: [
 		'-usbdevice', 'tablet',
 		'-vga', 'qxl',
-		'-vnc', ':0',
+		'-vnc', args,
 	],
 	'--gpu': [
 		'-device', 'vfio-pci,host=0a:00.0,x-vga=on,multifunction=on',
@@ -34,8 +41,8 @@ replaces = {
 		'-object', 'input-linux,id=mouse1,evdev=/dev/input/event28',
 		'-object', 'input-linux,id=kbd1,evdev=/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd,grab_all=on,repeat=on',
 	],
-	"--drive=windows": [
-		'-drive', 'file=/dev/sda,format=raw',
+	"--drive": lambda args: [
+		'-drive', disks[args],
 	],
 	'--pulse': [
 		'-audio', 'driver=pa,model=hda,server=/run/user/1000/pulse/native',
