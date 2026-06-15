@@ -4,10 +4,10 @@ import subprocess
 from pathlib import Path
 from enum import Enum
 import difflib
+import re
 
 def git(args, **kwargs):
 	return subprocess.run(["git"] + args, **kwargs)
-
 
 class State(Enum):
 	DEFAULT = 0
@@ -39,7 +39,7 @@ def handle_file(file_path: Path):
 				state = State.CONTEXT
 			case (State.THEIRS, _):
 				theirs.append(line)
-		
+
 			case (State.CONTEXT, '=======\n'):
 				state = State.OURS
 			case (State.CONTEXT, _):
@@ -55,10 +55,9 @@ def handle_file(file_path: Path):
 		if flush:
 			flush = False
 			handled = False
-
-			our_diff = ''.join(difflib.ndiff(context, ours))
+			our_diff = ''.join(filter(lambda line: not line.startswith('?'), difflib.ndiff(context, ours)))
 			our_diff_lines = our_diff.splitlines()
-			different_lines = (len(our_diff_lines) - len(ours)) // 3
+			different_lines = len(our_diff_lines) // 2
 
 			# rebased pkgrel bump
 			if different_lines == 1 and '- pkgrel' in our_diff:
@@ -68,7 +67,19 @@ def handle_file(file_path: Path):
 						pkgrel = int(line[7:]) + 1
 						theirs[i] = f'pkgrel={pkgrel}\n'
 						handled = True
-						break
+
+			# assume upgrade if we conflict on the version
+			if different_lines == 1 and '- pkgver' in our_diff:
+				theirs = ours
+				handled = True
+
+			# if checksums differ, pick the one with current pkgver in there
+			if different_lines == 1 and re.match(r'- [0-9a-f]{128}  ', our_diff):
+				pkgver_line = next(filter(lambda x: x.startswith('pkgver='), rest))
+				pkgver = pkgver_line.split('=')[1].strip()
+				if pkgver in ours[0]:
+					theirs = ours
+					handled = True
 
 			if handled:
 				rest.extend(theirs)
