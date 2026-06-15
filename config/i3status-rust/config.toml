@@ -81,18 +81,18 @@ missing_format = ""
 
 [[block]]
 block = "cpu"
-format = " c$utilization.eng(width:2) "
+format = " cpu($utilization.eng(width:2)) "
 
 [[block]]
 block = "memory"
-format = " m$mem_used_percents.eng(width:2) "
+format = " mem($mem_used_percents.eng(width:2)) "
 
 [[block]]
 block = "disk_space"
 info_type = "used"
 warning = 90.0
 alert = 95.0
-format = " d$percentage.eng(width:2) "
+format = " disk($percentage.eng(width:2)) "
 
 [[block]]
 if_command = "[ $(hostname) = toshiro ]"
@@ -138,17 +138,25 @@ cmd = "/home/patrycja/.local/bin/pavuctl"
 [[block]]
 if_command = "[ $(hostname) = toshiro -o $(hostname) = kurumi ]"
 block = "backlight"
-format = " $brightness "
+format = " br($brightness) "
 
 [[block]]
 if_command = "[ -d /sys/class/power_supply/BAT0 ]"
 block = "battery"
 interval = 1
-format = " $percentage - "
-full_format = " $percentage - "
-empty_format = " $percentage - "
-charging_format = " $percentage + "
+format = " bat($percentage) "
+full_format = " bat($percentage) "
+empty_format = " bat($percentage) "
+charging_format = " bat($percentage) "
 missing_format = ""
+
+[[block]]
+if_command = "[ -d /sys/class/power_supply/AC ]"
+block = "custom"
+interval = 1
+command = "</sys/class/power_supply/AC/online"
+format = " ch($text) "
+hide_when_empty = true
 
 [[block]]
 if_command = "[ -d /sys/class/power_supply/sbs-6-000b ]"
