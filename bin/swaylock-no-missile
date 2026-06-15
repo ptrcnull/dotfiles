@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -euxo pipefail
+
+trap 'rm -f "$XDG_RUNTIME_DIR"/inhibit-missile' EXIT INT TERM HUP
+
+touch "$XDG_RUNTIME_DIR"/inhibit-missile
+swaylockd --image "$HOME"/Cloud/Wallpapers/db_ice249.png
