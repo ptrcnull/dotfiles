@@ -1,3 +1,10 @@
 #!/bin/sh
 
-cut -d/ -f4 < "$(git rev-parse --show-toplevel)"/.git/refs/remotes/origin/HEAD
+repo="$(git rev-parse --show-toplevel)"
+origin_head="$repo"/.git/refs/remotes/origin/HEAD
+
+if [ -f "$origin_head ]; then
+	cut -d/ -f4 "$origin_head"
+else
+	echo "master"
+fi
