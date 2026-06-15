@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -eux
+
+doas service iwd stop
+doas modprobe -r iwlmvm
+doas modprobe -r iwlwifi
+doas modprobe -a iwlwifi iwlmvm
+doas service iwd start
