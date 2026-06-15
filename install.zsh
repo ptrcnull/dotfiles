@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-if [ "$ZSH_EVAL_CONTEXT" = "toplevel" ]; then
+if [ "$ZSH_EVAL_CONTEXT" = "toplevel" ] && [ "$1" != "--no-exec" ]; then
 	echo "[!] this script is meant to be sourced"
 fi
 
@@ -36,6 +36,20 @@ if [ -d "$HOME"/.zsh-custom ]; then
 		rm "$file"
 	done
 	rmdir "$HOME"/.zsh-custom
+fi
+
+local hostname="$(hostname)"
+local current_branch="$(zsh bin/git-current-branch)"
+if [ -f .git/refs/heads/"$hostname" ] && [ "$current_branch" != "$hostname" ]; then
+	echo "[+] detected local branch, switching"
+	set -x
+	git stash push --all
+	git switch "$hostname"
+	git rebase master
+	zsh "$0" --no-exec
+	git switch -
+	git stash pop
+	exec zsh
 fi
 
 if command -v rsync >/dev/null; then
@@ -123,4 +137,4 @@ if [ -d "$HOME"/.zsh ]; then
 	rm -rf "$HOME"/.zsh
 fi
 
-exec zsh
+[ "$1" = "--no-exec" ] || exec zsh
