@@ -1,0 +1,7 @@
+#!/bin/sh
+set -euo pipefail
+
+head="$(git rev-parse HEAD)"
+git checkout -p HEAD~1 "$@"
+git commit --amend --no-edit
+git checkout "$head" "$@"
