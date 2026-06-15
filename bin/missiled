@@ -1,7 +1,8 @@
 #!/bin/sh
 
 while sleep 30; do
-	if pidof swaylock; then
+	if pidof swaylock && ! test -f "$XDG_RUNTIME_DIR"/inhibit-missile; then
 		sussy
 	fi
 done
+
