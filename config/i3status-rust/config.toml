@@ -80,6 +80,10 @@ inactive_format = " wlan1(down) "
 missing_format = ""
 
 [[block]]
+block = "load"
+format = " load($1m.eng(width:4)) "
+
+[[block]]
 block = "cpu"
 format = " cpu($utilization.eng(width:2)) "
 
