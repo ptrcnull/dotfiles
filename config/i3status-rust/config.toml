@@ -72,6 +72,14 @@ inactive_format = " wlan0(down) "
 missing_format = ""
 
 [[block]]
+block = "net"
+device = "wlan1"
+format = " wlan1({$ip|no ip}) "
+format_alt = " wlan1($ssid;$signal_strength;{$ip|no ip}) "
+inactive_format = " wlan1(down) "
+missing_format = ""
+
+[[block]]
 block = "cpu"
 format = " c$utilization.eng(width:2) "
 
