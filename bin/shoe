@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec foot -o colors.foreground=000000
