@@ -1,0 +1,10 @@
+[Unit]
+Description=Aports MQTT notification daemon
+
+[Service]
+Type=simple
+ExecStart=/home/patrycja/.local/bin/aports-mqtt-listener
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
