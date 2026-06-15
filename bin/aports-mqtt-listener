@@ -1,0 +1,56 @@
+#!/usr/bin/env -S uv run --script
+#
+# /// script
+# dependencies = ["paho-mqtt"]
+# ///
+
+import paho.mqtt.client as mqtt
+import json
+import subprocess
+import os
+from pathlib import Path
+
+MAINTAINER = 'Patrycja Rosa <alpine@ptrcnull.me>'
+
+aports = os.getenv('HOME') + '/aports'
+res = subprocess.run(['rg', '-l', '[Mm]aintainer.*' + MAINTAINER], cwd=aports, stdout=subprocess.PIPE, check=True)
+packies = [ line.split('/')[1] for line in res.stdout.decode().splitlines() ]
+
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, reason_code, properties):
+    print(f"Connected with result code {reason_code}")
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe("#")
+
+
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    print(msg.topic, msg.payload)
+    if msg.topic.endswith('/errors'):
+        if msg.payload in [b'(null)', b'']:
+            return
+        body = json.loads(msg.payload.decode())
+        hostname = body['hostname']
+        pkgname = body['pkgname']
+        if pkgname in packies:
+            msg = f'{pkgname} on {hostname}'
+            print('Failed to build package:', msg)
+            args = [
+                'notify-send', '--urgency=critical',
+                'Failed to build package:', msg
+            ]
+            subprocess.run(args, check=True, shell=False)
+
+
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+mqttc.on_connect = on_connect
+mqttc.on_message = on_message
+
+mqttc.connect("msg.alpinelinux.org", 1883, 60)
+
+# Blocking call that processes network traffic, dispatches callbacks and
+# handles reconnecting.
+# Other loop*() functions are available that give a threaded interface and a
+# manual interface.
+mqttc.loop_forever()
