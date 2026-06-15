@@ -32,6 +32,14 @@ replaces = {
 		'-device', 'virtserialport,chardev=spicechannel0,name=com.redhat.spice.0',
 		'-chardev', 'spicevmc,id=spicechannel0,name=vdagent',
 	],
+	'--spicygl': lambda args: [
+		'-usbdevice', 'tablet',
+		'-vga', 'virtio',
+		'-device', 'virtio-serial-pci',
+		'-spice', f'unix=on,addr={args},disable-ticketing=on,gl=on',
+		'-device', 'virtserialport,chardev=spicechannel0,name=com.redhat.spice.0',
+		'-chardev', 'spicevmc,id=spicechannel0,name=vdagent',
+	],
 	'--vnc': lambda args: [
 		'-usbdevice', 'tablet',
 		'-vga', 'qxl',
