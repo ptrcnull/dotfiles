@@ -2,7 +2,7 @@
 
 a highly opinionated set of dotfiles, including, but not limited to:
 - zshrc with a bunch of aliases
-- dinit user services
+- dinit/openrc/systemd user services
 - some default envs for a sway-based desktop environment
 - a bunch of utility scripts in `bin/`
 
