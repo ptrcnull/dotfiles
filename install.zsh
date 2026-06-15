@@ -42,13 +42,15 @@ local hostname="$(hostname)"
 local current_branch="$(zsh bin/git-current-branch)"
 if [ -f .git/refs/heads/"$hostname" ] && [ "$current_branch" != "$hostname" ]; then
 	echo "[+] detected local branch, switching"
-	set -x
-	git stash push --all
+	local has_changes="$(git status --porcelain)"
+	[ "$has_changes" ] && git stash push --all
 	git switch "$hostname"
 	git rebase master
+	echo
 	zsh "$0" --no-exec
+	echo
 	git switch -
-	git stash pop
+	[ "$has_changes" ] && git stash pop
 	exec zsh
 fi
 
