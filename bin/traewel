@@ -43,6 +43,7 @@ if (debug) {
 const undate = x => x.replace('T', ' ').split('+')[0]
 
 const table = data.map(x => ({
+	id: x.status.id,
 	category: x.trip.category,
 	line: x.trip.lineName,
 	from: x.status.train.origin.name,
