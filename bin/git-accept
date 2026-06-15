@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/zsh
 
 usage() {
 	echo "usage: git accept <--ours|--theirs> [file...]"
 }
 
 repl=""
+preview=""
 
 for arg; do
 	case "$arg" in
@@ -24,6 +25,10 @@ for arg; do
 		repl='$2'
 		shift
 		;;
+	-p|--preview)
+		preview="yes"
+		shift
+		;;
 	--*)
 		usage
 		exit 1
@@ -40,6 +45,10 @@ if [ "$repl" = "" ]; then
 	exit 1
 fi
 
+root_dir="$(git rev-parse --show-toplevel)"
+
+regex='<<<<<<< (?:HEAD|Updated upstream)\n([\s\S]*?)(?:\|\|\|\|\|\|\| (?:parent of|Stash base)[\s\S]*?)?=======\n([\s\S]*?)>>>>>>> .*\n'
+
 (
 	if [ "$#" -eq 0 ]; then
 		git status --porcelain | rg UU | cut -c4-
@@ -47,6 +56,11 @@ fi
 		for arg; do echo "$arg"; done
 	fi
 ) | while read -r file; do
-	sd '<<<<<<< (?:HEAD|Updated upstream)\n([\s\S]*?)(?:\n\|\|\|\|\|\|\| (?:parent of|Stash base)[\s\S]*?)?=======\n([\s\S]*?)>>>>>>> .*' "$repl" "$file"
-	git add "$file"
+	[ "$#" -eq 0 ] && cd "$root_dir"
+	if [ "$preview" ]; then
+		git diff --no-index -- <(git show HEAD:"$file") <(sd -A -p "$regex" "$repl" "$file")
+	else
+		sd -A "$regex" "$repl" "$file"
+		git add "$file"
+	fi
 done
