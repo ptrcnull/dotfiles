@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -euo pipefail
+
+if [ "$#" -lt 3 ]; then
+	echo "usage: git clone-raw <url> <name>"
+	exit 1
+fi
+
+mkdir "$2"
+cd "$2"
+git init
+git remote add origin "$1"
+git fetch --all
+git fetch origin HEAD
+git checkout "$(git-default-branch)"
