@@ -3,7 +3,7 @@
 repo="$(git rev-parse --show-toplevel)"
 origin_head="$repo"/.git/refs/remotes/origin/HEAD
 
-if [ -f "$origin_head ]; then
+if [ -f "$origin_head" ]; then
 	cut -d/ -f4 "$origin_head"
 else
 	echo "master"
