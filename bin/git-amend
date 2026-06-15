@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -euo pipefail
+
+export GIT_COMMITTER_DATE="$(git show --no-patch --format="%cd")"
+exec git commit --amend --no-edit "$@"
