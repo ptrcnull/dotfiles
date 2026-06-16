@@ -150,6 +150,8 @@ cmd = "/home/patrycja/.local/bin/pavuctl"
 "alsa_output.usb-Apple__Inc.*" = "dongle"
 "alsa_output.usb-DisplayLink_Humanscale.*" = "dock"
 "alsa_output.usb-RODE_Microphones.*" = "interface"
+# bluez
+"bluez_output.AC_80_0A.*" = "xm5"
 
 [[block]]
 if_command = "[ $(hostname) = toshiro -o $(hostname) = kurumi ]"
