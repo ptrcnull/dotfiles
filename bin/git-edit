@@ -1,5 +1,7 @@
 #!/bin/sh
 
+eval "$(argparse.sh --reset "Reset HEAD to newly edited commit" "<git-ref>")"
+
 set -e
 file="$(mktemp -t git-edit.XXXXXXXXXX)"
 trap 'rm -f "$file"' EXIT INT TERM HUP
@@ -10,4 +12,10 @@ fi
 
 git cat-file commit "$1" > "$file"
 $EDITOR "$file"
-git hash-object --stdin -t commit -w < "$file"
+object="$(git hash-object --stdin -t commit -w < "$file")"
+
+if [ "$reset" ]; then
+	git reset "$object"
+else
+	echo "$object"
+fi
