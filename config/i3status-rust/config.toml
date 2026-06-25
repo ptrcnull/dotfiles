@@ -121,6 +121,7 @@ cmd = "/home/patrycja/.local/bin/pavuctl -t 4"
 [block.mappings]
 # toshiro
 "alsa_input.pci-0000_07_00.6.*" = "mic"
+"alsa_input.usb-RODE_Microphones.*" = "nt1"
 
 [[block]]
 block = "sound"
