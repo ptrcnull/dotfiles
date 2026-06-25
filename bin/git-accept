@@ -1,48 +1,29 @@
 #!/bin/zsh
 
-usage() {
-	echo "usage: git accept <--ours|--theirs> [file...]"
-}
+set -e
 
-repl=""
-preview=""
+eval "$(
+argparse.sh \
+	--ours ">repl" "Choose our git hunks" \
+	--theirs ">repl" "Choose their git hunks" \
+	-p --preview "Do not apply changes" \
+	--debug "Debug mode" \
+	"[...files]"
+)"
 
-for arg; do
-	case "$arg" in
-	-h|--help)
-		usage
-		exit 0
-		;;
-	--debug)
-		set -x
-		shift
-		;;
-	--ours)
-		repl='$1'
-		shift
-		;;
-	--theirs)
-		repl='$2'
-		shift
-		;;
-	-p|--preview)
-		preview="yes"
-		shift
-		;;
-	--*)
-		usage
-		exit 1
-		;;
-	*)
-		set -- "$@" "$arg"
-		shift
-		;;
-	esac
-done
-
-if [ "$repl" = "" ]; then
-	usage
+if [ ! "$repl" ]; then
+	argparse_usage "$0"
 	exit 1
+fi
+
+if [ "$repl" = "ours" ]; then
+	repl='$1'
+else
+	repl='$2'
+fi
+
+if [ "$debug" ]; then
+	set -x
 fi
 
 root_dir="$(git rev-parse --show-toplevel)"
