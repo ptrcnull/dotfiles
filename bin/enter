@@ -13,12 +13,55 @@ import signal
 
 q = Queue()
 
+def bwrap_args(root: str, args: list[str]):
+	res = [
+		'bwrap',
+		'--bind', root, '/',
+		'--tmpfs', '/run',
+		'--tmpfs', '/dev/shm',
+		'--bind', '/tmp', '/tmp',
+		'--proc', '/proc',
+		'--dev', '/dev',
+		'--ro-bind', '/sys', '/sys',
+		'--dev-bind', '/dev/dri', '/dev/dri',
+		'--setenv', 'TERM', 'xterm-256color',
+		'--setenv', 'LANG', 'en_US.UTF-8',
+	]
+
+	resolv = Path('/etc/resolv.conf').resolve()
+	if resolv.is_file():
+		res += [
+			'--ro-bind', resolv, '/etc/resolv.conf',
+		]
+
+	runtime = os.getenv('XDG_RUNTIME_DIR')
+	if runtime is not None:
+		res += [
+			'--bind', runtime, runtime,
+		]
+
+	res += args
+
+	return res
+
 def become_tty_fg():
-    os.setpgrp()
-    hdlr = signal.signal(signal.SIGTTOU, signal.SIG_IGN)
-    tty = os.open('/dev/tty', os.O_RDWR)
-    os.tcsetpgrp(tty, os.getpgrp())
-    signal.signal(signal.SIGTTOU, hdlr)
+	os.setpgrp()
+	hdlr = signal.signal(signal.SIGTTOU, signal.SIG_IGN)
+	tty = os.open('/dev/tty', os.O_RDWR)
+	os.tcsetpgrp(tty, os.getpgrp())
+	signal.signal(signal.SIGTTOU, hdlr)
+
+def parse_args():
+	args = iter(sys.argv[1:])
+	binds = []
+	while True:
+		try:
+			arg = next(args)
+			if arg == '--bind':
+				binds.append((next(args), next(args)))
+		except StopIteration:
+			break
+	return binds
 
 def runner(read_fd, write_fd):
 	# print('runner reading from', read_fd, 'and writing to', write_fd)
@@ -30,8 +73,16 @@ def runner(read_fd, write_fd):
 			break
 		data = reader.readline()
 		cmd = shlex.split(data)
+
 		print('running elevated:', cmd)
-		args = ['doas', 'enter-bwrap', sys.argv[1], *cmd]
+		args = []
+
+		binds = parse_args()
+		for bind in binds:
+			args += ['--bind', bind[0], bind[1]]
+		args += cmd
+
+		args = ['doas'] + bwrap_args(sys.argv[1], args)
 
 		ret = subprocess.run(args, preexec_fn=become_tty_fg)
 		retcode = ret.returncode
@@ -48,7 +99,7 @@ def main():
 	script = f'''
 #!/bin/sh
 #set -x
-echo "$@" > /proc/self/fd/{args_w}
+echo "--chdir $PWD $@" > /proc/self/fd/{args_w}
 exitcode=$(head -n 1 /proc/self/fd/{wait_r})
 exit $exitcode
 	'''.lstrip()
@@ -69,12 +120,11 @@ exit $exitcode
 			file.write(script)
 		doas.chmod(0o555)
 
-		args = [
-			'enter-bwrap',
-			sys.argv[1],
+		args = bwrap_args(sys.argv[1], [
 			'--bind', tempdir, '/tmp/xbin',
-			*sys.argv[2:],
-		]
+			*sys.argv[2:]
+		])
+
 		env = os.environ.copy()
 		env['PATH'] = '/tmp/xbin:' + env['PATH']
 		with subprocess.Popen(args, pass_fds=[args_w, wait_r], env=env) as process:
