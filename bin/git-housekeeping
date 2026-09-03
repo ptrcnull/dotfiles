@@ -1,5 +1,8 @@
 #!/bin/sh
 
-git repack -Ad
+set -e
+
 git gc --auto
+git prune --progress
 git commit-graph write --reachable --changed-paths
+git repack -Ad
