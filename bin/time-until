@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+from datetime import datetime, timezone
+import sys
+
+dt = datetime.fromisoformat(sys.argv[1])
+now = datetime.now()
+
+diff = dt - now
+days = diff.days
+hours = diff.seconds // 3600
+print(f'{days}d{hours}h')
