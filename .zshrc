@@ -192,6 +192,7 @@ alias gchanged='git status --porcelain | cut -c4-'
 alias gconflicted='git status --porcelain | grep UU | cut -c4-'
 alias gfa='git fetch --all --tags --prune'
 alias gf='git fetch --tags --prune'
+alias gtr='git tree'
 
 gfork() {
 	local username="ptrcnull"
