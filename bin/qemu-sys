@@ -54,7 +54,7 @@ replaces = {
 		'-object', 'input-linux,id=kbd1,evdev=/dev/input/by-id/usb-Keychron_Keychron_K2-event-kbd,grab_all=on,repeat=on',
 	],
 	"--drive": lambda args: [
-		'-drive', disks[args],
+		'-drive', drives[args],
 	],
 	'--pulse': [
 		'-audio', 'driver=pa,model=hda,server=/run/user/1000/pulse/native',
